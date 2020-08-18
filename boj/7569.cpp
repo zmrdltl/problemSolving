@@ -1,52 +1,82 @@
 #include <iostream>
+#include <tuple>
 #include <queue>
+#include <algorithm>
+#include <cstring>
 using namespace std;
-int N, M, h, w,d[1000][1000], a[1000][1000], dh[] = { 0,0,-1,1 }, dw[] = { -1,1,0,0 }, ans,cnt;
-queue <pair <int, int>> q;
-int main() {
-	cin >> M >> N;
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < M; j++)
-		{
-			cin >> a[i][j];
-			d[i][j] = -1;
-			if (a[i][j] == 1)//이미 익어있는 상태라면 큐에 넣어줌 -> 먼저 들어가 있는(익어있는) 큐(토마토)의 요소 부터 탐색하기 위함
-			{
-				q.push(make_pair(i, j));
-				d[i][j] = 0;//익어 있는 토마토로부터의 거리는 0이므로 초기화해 줌
+
+int m,n,h;
+int tomato[101][101][101];
+int ck[101][101][101];
+int dx[4] ={0,0,-1,1};
+int dy[4] = {-1,1,0,0};
+int dz[2] = {1,-1};
+int ans = 0x7f7f7f7f;
+int cnt = 0;
+int bfs(int h,int i,int j){
+	queue <tuple<int,int,int>> q;
+	memset(ck,0,sizeof(ck));
+	q.push({h,i,j});
+	ck[h][i][j] = 1;
+
+	while(!q.empty()){
+		auto front = q.front();
+		int x = get<0>(front);
+		int y = get<1>(front);
+		int z = get<2>(front);
+		q.pop();
+		for(int i = 0; i < 4; i++){
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+			if(tomato[z][nx][ny]==-1)continue;
+			if(!ck[z][nx][ny] && (tomato[z][nx][ny]==1 || tomato[z][nx][ny] == 0)){
+				ck[z][nx][ny] = 1;
+				tomato[z][nx][ny]=1;
+				q.push({z,nx,ny});
 			}
 		}
-	for (int i = 0; i < N; i++)//모두 익어있는 상태면 0출력
-		for (int j = 0; j < M; j++)
-		{
-			if (a[i][j] == 1) { cnt++; }
-			if (cnt == N*M) { cout << "0"; return 0; }
-		}
-	//BFS탐색
-	while (!q.empty())
-	{
-		h = q.front().first;
-		w = q.front().second;
-		q.pop();
-		for (int i = 0; i < 4; i++)
-		{
-			int nh = h + dh[i];
-			int nw = w + dw[i];
-			if (0 <= nh && nh< N && 0 <= nw&&nw<M)
-				if (a[nh][nw] == 0 && d[nh][nw] == -1)//아직 익지 않았을 때
-				{
-					q.push(make_pair(nh, nw));
-					d[nh][nw] = d[h][w] + 1;
-					ans = d[nh][nw];
-				}
+		if(!ck[z+1][x][y] && z+1<n && 
+		(tomato[z-1][x][y]==1 || tomato[z-1][x][y]==0)) {ck[z+1][x][y] =1;tomato[z+1][x][y]=1;q.push({z+1,x,y});}
+
+		if(!ck[z-1] && z-1 >= 0 && 
+		(tomato[z-1][x][y]==1 || tomato[z-1][x][y]==0)) {ck[z-1][x][y] =1;tomato[z-1][x][y]=1;q.push({z-1,x,y});}
+		
+	}
+	int answer = 0;
+	for(int i = 0; i < h; i++)
+		for(int j = 0; j < n; j++)
+			for(int k = 0; k < m; k++)
+				if(tomato[i][j][k]==1) answer++;
+	if(answer<cnt) return -1;
+	else return answer;
+}
+
+int main(){
+	cin >> m >> n >> h;
+	int cnt2= 0;
+	for(int i = 0; i < h; i++)
+		for(int j = 0; j < n; j++)
+			for(int k = 0; k < m; k++){
+				cin >> tomato[h][n][m];
+				if(tomato[i][j][k]!=-1) cnt++;
+				if(tomato[i][j][k]==1) cnt2++;
+			}
+	if(cnt==cnt2){cout << 0 <<'\n'; return 0;}
+
+	for(int i = 0; i < h; i++)
+		for(int j = 0; j < n; j++)
+			for(int k = 0; k < m; k++)
+				if(tomato[i][j][k]==1 && !ck[i][j][k]) ans = min(ans,bfs(i,j,k));
+	for(int i = 0; i < h; i++){
+		for(int j = 0; j < n; j++){
+			for(int k = 0; k < m; k++){
+				cout << tomato[i][j][k] << ' ';
+			}
+			cout << '\n';
 		}
 	}
-	//상자안에 토마토가 모두 익어있지 않다면 -1 출력
-	for(int i = 0; i<N; i++)
-		for(int j = 0; j<M; j++)
-			if (a[i][j]==0&&d[i][j]==-1) { cout << "-1"; return 0; }
-	/*for (int i = 0; i < N; i++, puts(""))//d출력
-		for (int j = 0; j < M; j++)
-			cout << d[i][j] << ' ';*/
-	cout << ans << '\n';
+		
+
+	cout << ans <<'\n';
 }
