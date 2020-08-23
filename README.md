@@ -1,12 +1,6 @@
-## problemSolving
-
----
-
-## 문제해결 코드 모음
+## problemSolving 문제에 대한 번호, 코드 답 모음
 
 ## 문제푸는 사이트
-
----
 
 ### 1. BOJ
 
