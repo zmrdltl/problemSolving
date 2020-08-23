@@ -4,6 +4,10 @@
         "string": "cpp",
         "memory": "cpp",
         "functional": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "queue": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "vector": "cpp"
     }
 }
