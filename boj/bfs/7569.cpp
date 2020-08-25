@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cstring>
 using namespace std;
-
+//TODO 못함
 int m,n,h;
 int tomato[101][101][101];
 int ck[101][101][101];
