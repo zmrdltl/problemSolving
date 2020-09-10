@@ -17,9 +17,8 @@ int main(){
     sort(v.begin(),v.begin() + n,cmp);
     int endTime = -1;
     for(int i = 0; i < n; i++){
-        //시작 시간이 같은 회의들 중 가장 일찍 끝나는 시간을 고른다.
         if(endTime>v[i].first) continue;
-        else endTime = v[i].second,ans++;
+        endTime = v[i].second,ans++;
     }
     cout << ans <<'\n';
 }
