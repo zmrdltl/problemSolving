@@ -20,7 +20,6 @@ int main(){
                 cout << pqMaxHeap.top() <<'\n';
                 pqMaxHeap.pop();
             }
-
         }
     }
 }

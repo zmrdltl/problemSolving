@@ -1,7 +1,7 @@
 #include<iostream>
 #include <string>
 using namespace std;
-
+//TODO 다 못함
 int buttons[10] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 int brokenBtnNum;
 int currentChannel = 100;
