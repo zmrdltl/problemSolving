@@ -6,6 +6,7 @@ using namespace std;
 int n;
 vector <pair<int,int>> v;
 vector <int> ans(1000001);
+
 int main(){
     cin >> n;
     for(int i =0; i<n; i++){
@@ -14,9 +15,7 @@ int main(){
         v.push_back({x,i});
     }
     sort(v.begin(),v.end());
-    // for(int i = 0; i < n ; i++){
-    //     cout << v[i].first << ' ' << v[i].second <<'\n';
-    // }
+    
     int pivot = v[0].first;
     int cnt = 0;
     ans[v[0].second] = 0;
@@ -29,6 +28,7 @@ int main(){
             pivot = v[i].first;
         }
     }
+
     for(int i = 0; i < n ; i++){
         cout << ans[i] << ' ';
     }

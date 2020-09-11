@@ -1,10 +1,12 @@
 #include <iostream>
 using namespace std;
+
 int n;
 int paper[2200][2200];
 int zeroPaper;
 int minusPaper;
 int onePaper;
+
 bool isPaper(int i,int j,int width){
     int pivot = paper[i][j];
     for(int x = i; x < i + width; x++){
@@ -39,6 +41,7 @@ void cutPaper(int i,int j,int n){
     
     return;
 }
+
 int main(){
     cin >> n;
     for(int i = 0; i < n; i++)
