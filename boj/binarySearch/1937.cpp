@@ -5,7 +5,7 @@
 using namespace std;
 vector <int> liquid;
 int n;
-void binarySearch(int n){
+void twoPointer(int n){
     int left = 0;
     int right = n-1;
     int rightValue, leftValue, sum = 0;
@@ -25,6 +25,7 @@ void binarySearch(int n){
     else
         cout << rightValue  <<  ' ' <<  leftValue <<'\n'; 
 }
+
 int main(){
     cin >> n;
     for(int i = 0; i <n; i++){
@@ -33,5 +34,6 @@ int main(){
         liquid.push_back(feature);
     }
     sort(liquid.begin(),liquid.end());
-    binarySearch(n);
+    twoPointer(n);
 }
+
