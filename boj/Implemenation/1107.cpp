@@ -1,24 +1,17 @@
-#include<iostream>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 #include <string>
 using namespace std;
-//TODO 다 못함
-int buttons[10] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-int brokenBtnNum;
-int currentChannel = 100;
-string channel;
+int channel;
+int brokenNum;
+//TODO 미구현
 
-
-int getPushNum(string x){
-
-}
+vector <int> arr;
 
 int main(){
-    cin >> channel;
-    cin >> brokenBtnNum;
-    for(int i = 0; i < brokenBtnNum; i++){
-        int idx;
-        cin >> idx;
-        buttons[idx] = 0;
+    cin >> channel >> brokenNum;
+    for(int i = 0; i < brokenNum; i++){
+        cin >> arr[i];
     }
-    cout << getPushNum("");
 }
