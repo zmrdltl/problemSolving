@@ -1,6 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
+#include <vector>
 #include <cmath>
 #include <string>
 using namespace std;
@@ -9,7 +9,7 @@ int channelToGo;
 int brokenNum;
 int result = 0x7f7f7f7f;
 
-vector <int> brokenChannels;
+int brokenChannels[10];
 vector <int> nonBrokenChannels;
 
 void getNumberToPush(int cnt, int value, int num){
@@ -24,20 +24,16 @@ void getNumberToPush(int cnt, int value, int num){
 
 int main(){
     cin >> channelToGo >> brokenNum;
-    
+
     for(int i = 0; i < brokenNum; i++){
         int channelNum;
         cin >> channelNum;
-        brokenChannels.push_back(channelNum);
+        brokenChannels[channelNum] = 1;
     }
 
     for(int i = 0; i< 10; i++){
-        int flag = 0;
-        for(int j = 0; j < brokenChannels.size(); j++){
-            if(brokenChannels[j]==i)
-                flag = 1;
-        }
-        if(!flag) nonBrokenChannels.push_back(i);
+        if(!brokenChannels[i])
+            nonBrokenChannels.push_back(i);
     }
 
     for(int i = 1; i <= 7; i++)
