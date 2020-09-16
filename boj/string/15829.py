@@ -1,4 +1,3 @@
-
 def convertStrToInt(strWord):
     tmp = []
     for i in range(strSize):
