@@ -1,82 +1,62 @@
 #include <iostream>
+#include <algorithm>
 #include <tuple>
 #include <queue>
-#include <algorithm>
-#include <cstring>
+#include <vector>
 using namespace std;
-//TODO 못함
-int m,n,h;
-int tomato[101][101][101];
-int ck[101][101][101];
-int dx[4] ={0,0,-1,1};
-int dy[4] = {-1,1,0,0};
-int dz[2] = {1,-1};
-int ans = 0x7f7f7f7f;
-int cnt = 0;
-int bfs(int h,int i,int j){
-	queue <tuple<int,int,int>> q;
-	memset(ck,0,sizeof(ck));
-	q.push({h,i,j});
-	ck[h][i][j] = 1;
+queue <tuple<int,int,int>> q;
+int m,n,h,ans;
+int tomatoBox[101][101][101];
+int check[101][101][101];
+int dx[] = {0, 0, 1, -1, 0, 0};
+int dy[] = {1, -1, 0, 0, 0, 0};
+int dh[] = {0, 0, 0, 0, 1, -1};
+int d[101][101][101];
 
+bool isAllRiped(){
+	for(int k = 0; k < h; k ++)
+		for(int i = 0; i < n; i++)
+			for(int j = 0; j < m; j ++)
+				if(tomatoBox[k][i][j]==0) return 0;
+	return 1;
+}
+
+int bfs(){
+	int day = 0;
 	while(!q.empty()){
-		auto front = q.front();
-		int x = get<0>(front);
-		int y = get<1>(front);
-		int z = get<2>(front);
+		int height = get<0>(q.front());
+		int x = get<1>(q.front());
+		int y = get<2>(q.front());
 		q.pop();
-		for(int i = 0; i < 4; i++){
-			int nx = x + dx[i];
-			int ny = y + dy[i];
-			if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
-			if(tomato[z][nx][ny]==-1)continue;
-			if(!ck[z][nx][ny] && (tomato[z][nx][ny]==1 || tomato[z][nx][ny] == 0)){
-				ck[z][nx][ny] = 1;
-				tomato[z][nx][ny]=1;
-				q.push({z,nx,ny});
+		for(int direction = 0; direction < 6; direction++){
+			int nheight = height + dh[direction];
+			int nx = x + dx[direction];
+			int ny = y + dy[direction];
+			if(0 > nheight || nheight >= h || 0 > nx || nx >= n || 0 > ny || ny >= m) continue;
+			if(tomatoBox[nheight][nx][ny]==0 && check[nheight][nx][ny]==0){
+				check[nheight][nx][ny] = 1;
+				tomatoBox[nheight][nx][ny] = 1;
+				q.push({nheight,nx,ny});
+				d[nheight][nx][ny] = d[height][x][y] + 1;
+				day = max(day,d[nheight][nx][ny]);
 			}
 		}
-		if(!ck[z+1][x][y] && z+1<n && 
-		(tomato[z-1][x][y]==1 || tomato[z-1][x][y]==0)) {ck[z+1][x][y] =1;tomato[z+1][x][y]=1;q.push({z+1,x,y});}
-
-		if(!ck[z-1] && z-1 >= 0 && 
-		(tomato[z-1][x][y]==1 || tomato[z-1][x][y]==0)) {ck[z-1][x][y] =1;tomato[z-1][x][y]=1;q.push({z-1,x,y});}
-		
 	}
-	int answer = 0;
-	for(int i = 0; i < h; i++)
-		for(int j = 0; j < n; j++)
-			for(int k = 0; k < m; k++)
-				if(tomato[i][j][k]==1) answer++;
-	if(answer<cnt) return -1;
-	else return answer;
+	return day;
 }
 
 int main(){
 	cin >> m >> n >> h;
-	int cnt2= 0;
-	for(int i = 0; i < h; i++)
-		for(int j = 0; j < n; j++)
-			for(int k = 0; k < m; k++){
-				cin >> tomato[h][n][m];
-				if(tomato[i][j][k]!=-1) cnt++;
-				if(tomato[i][j][k]==1) cnt2++;
+	for(int k = 0; k < h; k ++){
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < m; j ++){
+				cin >> tomatoBox[k][i][j];
+				if(tomatoBox[k][i][j]==1) q.push({k,i,j});
 			}
-	if(cnt==cnt2){cout << 0 <<'\n'; return 0;}
-
-	for(int i = 0; i < h; i++)
-		for(int j = 0; j < n; j++)
-			for(int k = 0; k < m; k++)
-				if(tomato[i][j][k]==1 && !ck[i][j][k]) ans = min(ans,bfs(i,j,k));
-	for(int i = 0; i < h; i++){
-		for(int j = 0; j < n; j++){
-			for(int k = 0; k < m; k++){
-				cout << tomato[i][j][k] << ' ';
-			}
-			cout << '\n';
 		}
 	}
-		
-
-	cout << ans <<'\n';
+	if(isAllRiped()) {cout << 0 <<'\n'; return 0;}
+	ans = bfs();
+	if(isAllRiped()) cout << ans <<'\n';
+	else cout << -1 << '\n';
 }
