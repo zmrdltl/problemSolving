@@ -2,9 +2,12 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 using namespace std;
 int testCase, a, b;
+string answer;
 int ansSize = 0x7f7f7f7f;
+int ck[10001];
 int D(int num){
     num *= 2;
     if(num > 9999) return num % 10000;
@@ -36,23 +39,34 @@ int R(int num){
 }
 
 string dfs(string ans, int num){
+    int ret = num;
+    if(ck[ret]) return ans;
+
     if(num == b){
         cout << "i did it" <<'\n';
         if(ansSize > ans.size()){
             ansSize = ans.size();
-            return ans;
 
         }
+        return ans;
+
     }
     int tmp = num;
-    dfs(ans+"D",D(tmp));
-    dfs(ans+"S",S(tmp));
-    dfs(ans+"L",L(tmp));
-    dfs(ans+"R",R(tmp));
+    if(ck[tmp]==0){
+        ck[tmp] = 1;
+        dfs(ans+"D",D(tmp));
+        dfs(ans+"S",S(tmp));
+        dfs(ans+"L",L(tmp));
+        dfs(ans+"R",R(tmp));
+        ck[tmp] = 0;
+    }
+   
 }
+
 int main(){
     cin >> testCase;
     while(testCase--){
+        memset(ck,0,sizeof(ck));
         ansSize = 0x7f7f7f7f;
         cin >> a >> b;
         cout << dfs("",a);
