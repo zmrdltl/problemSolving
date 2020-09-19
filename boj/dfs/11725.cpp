@@ -1,12 +1,10 @@
 #include <iostream>
-#include <string>
 #include <vector>
 using namespace std;
 
-vector <int> v[100001];
 int n;
-int ck[100001];
 int parent[100001];
+vector <int> v[100001];
 
 void dfs(int x){
     for(int i = 0; i < v[x].size(); i++){
@@ -14,7 +12,6 @@ void dfs(int x){
             parent[v[x][i]] = x;
             dfs(v[x][i]);
         }
-
     }
 }
 
