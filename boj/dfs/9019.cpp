@@ -8,11 +8,13 @@ int testCase, a, b;
 string answer;
 int ansSize = 0x7f7f7f7f;
 int ck[10001];
+
 int D(int num){
     num *= 2;
     if(num > 9999) return num % 10000;
     return num;
 }
+
 int S(int num){
     if(num - 1 <= 0) return 9999;
     return num - 1;
@@ -39,28 +41,21 @@ int R(int num){
 }
 
 string dfs(string ans, int num){
-    int ret = num;
-    if(ck[ret]) return ans;
-
+    cout << num <<'\n';
     if(num == b){
         cout << "i did it" <<'\n';
         if(ansSize > ans.size()){
             ansSize = ans.size();
+            return ans;
 
         }
-        return ans;
-
+    
+        return "";
     }
-    int tmp = num;
-    if(ck[tmp]==0){
-        ck[tmp] = 1;
-        dfs(ans+"D",D(tmp));
-        dfs(ans+"S",S(tmp));
-        dfs(ans+"L",L(tmp));
-        dfs(ans+"R",R(tmp));
-        ck[tmp] = 0;
-    }
-   
+    dfs(ans+"D",D(num));
+    dfs(ans+"S",S(num));
+    dfs(ans+"L",L(num));
+    dfs(ans+"R",R(num));
 }
 
 int main(){
