@@ -10,6 +10,8 @@
         "deque": "cpp",
         "vector": "cpp",
         "cmath": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "cstdlib": "cpp"
     }
 }
