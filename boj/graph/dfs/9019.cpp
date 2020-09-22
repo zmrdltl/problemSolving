@@ -8,6 +8,7 @@ int testCase, a, b;
 string answer;
 int ansSize = 0x7f7f7f7f;
 int ck[10001];
+//TODO 미구현
 
 int D(int num){
     num *= 2;
