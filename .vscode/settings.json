@@ -12,6 +12,7 @@
         "cmath": "cpp",
         "tuple": "cpp",
         "type_traits": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "ratio": "cpp"
     }
 }
