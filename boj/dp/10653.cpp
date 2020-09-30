@@ -14,7 +14,7 @@ int dp(int n,int k){
     ret = 0x7f7f7f7f;
 
     for(int i  = 0; i <= k; i++){
-        if(1 <= n - i - 1 && 0 <= k-i)ret = min(dp(n-i-1,k-i) + a[n-i-1][n],ret);
+        if(1 <= n-i-1) ret = min(dp(n-i-1,k-i) + a[n-i-1][n],ret);
     }
 
     return ret;
@@ -25,6 +25,7 @@ int main(){
     for(int i = 1; i <= n; i ++){
         cin >> v[i].first >> v[i].second;
     }
+    
     memset(d,-1,sizeof(d));
     for(int i = 1; i <= n-1; i++){
         for(int j = i+1; j <= n; j++){
