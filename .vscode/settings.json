@@ -13,6 +13,11 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "cstdlib": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "bitset": "cpp",
+        "initializer_list": "cpp",
+        "regex": "cpp",
+        "utility": "cpp",
+        "valarray": "cpp"
     }
 }

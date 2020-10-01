@@ -3,42 +3,43 @@
 #include <vector>
 #include <cstring>
 using namespace std;
-int t,n;
 
 bool canGo(int distance){
     return distance <= 1000 ? true : false;
 }
 
+void storeDistances(int n, vector <pair<int,int>> &map, int checkPath[105][105]){
+    for(int i = 0; i < n + 2; i++){
+        for(int j = i + 1; j < n + 2; j++){
+            int distance = abs(map[i].first - map[j].first) + abs(map[i].second - map[j].second);
+            checkPath[j][i] = checkPath[i][j] = canGo(distance);
+        }
+    }
+}
+
+void floydWarshell(int n, int checkPath[105][105]){
+    for(int k = 0; k < n + 2; k++)
+            for(int i = 0; i < n + 2; i++)
+                for(int j = 0; j < n + 2; j++)
+                    if(checkPath[i][k]&&checkPath[k][j]) checkPath[i][j] = 1;
+}
+
 int main(){
+    int t,n;
     cin >> t;
     while(t--){
         cin >> n;
+
         vector <pair<int,int>> map(n+2,{0,0});
-        int dist[105][105];
-        memset(dist,0,sizeof(dist));
-        for(int i = 0; i < n + 2; i++){
-            cin >> map[i].first >> map[i].second;
-        }
+        int checkPath[105][105];
+        memset(checkPath,0,sizeof(checkPath));
 
-        for(int i = 0; i < n + 2; i++){
-            for(int j = i + 1; j < n + 2; j++){
-                int distance = abs(map[i].first - map[j].first) + abs(map[i].second - map[j].second);
-                if(canGo(distance)) {
-                    dist[i][j] = 1;
-                    dist[j][i] = 1;
-                }
-            }
-        }
+        for(int i = 0; i < n + 2; i++) cin >> map[i].first >> map[i].second;
+        
+        storeDistances(n, map, checkPath);
+        floydWarshell(n, checkPath);
 
-        for(int k = 0; k < n + 2; k++){
-            for(int i = 0; i < n+2; i++){
-                for(int j = 0; j < n+2; j++){
-                    if(dist[i][k] == 1&&dist[k][j] == 1) {dist[i][j] = 1;dist[j][i] = 1;}
-                }
-            }
-        }
-
-        if(dist[0][n+1]) cout << "happy\n";
+        if(checkPath[0][n+1]) cout << "happy\n";
         else cout << "sad\n";
     }
 }
