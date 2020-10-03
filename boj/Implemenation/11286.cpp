@@ -15,25 +15,14 @@ int main() {
     while(n--){
         int x;
         cin >> x;
-        if(x!=0){
+        if(!x){
             if(!pq.empty()){
-                
-                if(minElemet.first == pq.top().first){
-                    cout << minElement.second <<'\n';
-                }
-                else{
-                    cout << minElement.first <<'\n';
-
-                }
                 minElement = pq.top();
+                cout << pq.top().second << '\n';
                 pq.pop();
             }
-            else{
-                cout << 0 << '\n';
-            }
+            else cout << 0 << '\n';
         }
-        else{
-            pq.push({abs(x),x});
-        }
+        else pq.push({abs(x),x});
     }
 }
