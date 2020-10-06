@@ -25,7 +25,7 @@ int main(void) {
             familyInfo[v[0][j]] = (familyInfo[v[1][j]] + familyInfo[v[2][j]]) / 2;
         }
     }
-
+    for(auto p : familyInfo) cout << p.first << ' ' << p.second << '\n';
     for (int i = 0; i < m; i++) {
         cin >> name;
         if(familyInfo[name] > tmp) tmp = familyInfo[name], ans = name;
