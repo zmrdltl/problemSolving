@@ -12,8 +12,6 @@ struct homeInfo{
     int x,y;
 };
 
-
-
 int calCulateDistance(int x1, int x2, int y1, int y2){
     return abs(x1-x2) + abs(y1-y2);
 }
@@ -48,21 +46,19 @@ int main(){
     for(int i  =0; i < n; i++){
         for(int j = 0; j < n; j++){
             cin >> map[i][j];
-
             if(map[i][j]==2){
                 chickenCoord.push_back({i,j,0});
-                
             }else if(map[i][j]==1){
                 homeCoord.push_back({i,j});
             }
         }
     }
     
-
     for(int i = 0; i < (1<<chickenCoord.size()); i++){
         int cnt =0;
         int tmp  = i;
-        for(int i = 0; i < chickenCoord.size(); i++) chickenCoord[i].isClosed = 0;
+        for(int i = 0; i < chickenCoord.size(); i++) 
+            chickenCoord[i].isClosed = 0;
 
         while(tmp){
             cnt += tmp %2;
