@@ -5,7 +5,7 @@
 using namespace std;
 
 struct chickenInfo{
-    int x,y,isClosed = 0;
+    int x,y,isOpen = 0;
 };
 
 struct homeInfo{
@@ -22,7 +22,7 @@ int getMinChickenDistance(vector <chickenInfo> chickenCoord,
     for(int i = 0; i < homeCoord.size(); i++){
         int tmp = 101;
         for(int j = 0; j < chickenCoord.size(); j++){
-            if(chickenCoord[j].isClosed){
+            if(chickenCoord[j].isOpen){
                 int x1 = homeCoord[i].x;
                 int x2 = chickenCoord[j].x;
                 int y1 = homeCoord[i].y;
@@ -58,7 +58,7 @@ int main(){
         int cnt =0;
         int tmp  = i;
         for(int i = 0; i < chickenCoord.size(); i++) 
-            chickenCoord[i].isClosed = 0;
+            chickenCoord[i].isOpen = 0;
 
         while(tmp){
             cnt += tmp %2;
@@ -66,7 +66,7 @@ int main(){
         }
         if(cnt > m) continue;
 
-        for(int j=0;j<chickenCoord.size();j++) chickenCoord[j].isClosed = (i & (1<<j));  
+        for(int j=0;j<chickenCoord.size();j++) chickenCoord[j].isOpen = (i & (1<<j));  
         ret = min(ret,getMinChickenDistance(chickenCoord,homeCoord));
     }
     cout << ret << '\n';
