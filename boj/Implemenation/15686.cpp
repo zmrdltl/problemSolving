@@ -57,13 +57,12 @@ int main(){
     for(int i = 0; i < (1<<chickenCoord.size()); i++){
         int cnt =0;
         int tmp  = i;
-        for(int i = 0; i < chickenCoord.size(); i++) 
-            chickenCoord[i].isOpen = 0;
 
         while(tmp){
             cnt += tmp %2;
             tmp/=2;
         }
+
         if(cnt > m) continue;
 
         for(int j=0;j<chickenCoord.size();j++) chickenCoord[j].isOpen = (i & (1<<j));  
