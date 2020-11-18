@@ -2,8 +2,7 @@
 #include <cstring>
 using namespace std;
 typedef long long ll;
-ll a[100];
-ll d[101][101];
+ll a[100], d[101][101];
 ll ans;
 int n;
 //i까지 뽑았을 때 결과 j를 만드는 경우의 수 d[i][j]
