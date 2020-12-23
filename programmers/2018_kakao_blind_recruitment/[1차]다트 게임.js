@@ -1,51 +1,36 @@
 function solution(dartResult) {
-  let answer = 0;
-  let flag1 = 0;
-  let flag2 = 0;
-  let score = 0;
-  let tmp = "";
-  for (let i = 0; i < dartResult.length; i++) {
-    while (1) {
-      tmp += dartResult[i];
-      if (
-        dartResult[i] === "S" ||
-        dartResult[i] === "T" ||
-        dartResult[i] === "D"
-      ) {
-        score = parseInt(tmp);
-        tmp = "";
-        break;
-      } else if (dartResult[i] === "*" || dartResult[i] === "#") {
-        tmp = "";
-        break;
+  const answer = [];
+  let number = "";
+  for (const result of dartResult) {
+    if (result === "*") {
+      answer[answer.length - 1] *= 2;
+      if (answer.length > 1) {
+        answer[answer.length - 2] *= 2;
       }
-      i += 1;
+      continue;
     }
-    if (dartResult[i] === "S") {
-      answer += score;
-    } else if (dartResult[i] === "D") {
-      answer += score * score;
-    } else if (dartResult[i] === "T") {
-      answer += score * score * score;
-    } else if (dartResult[i] === "*") {
-      if (flag1) {
-        answer *= 4;
-      } else {
-        flag1 += 1;
-        answer *= 2;
-      }
-    } else {
-      if (flag1) {
-        score *= -2;
-      } else {
-        score *= -1;
-      }
+    if (result === "#") {
+      answer[answer.length - 1] *= -1;
+      continue;
     }
-    if (dartResult[i + 1] !== "*" && dartResult[i + 1] !== "#") answer += score;
-    console.log("스코어", score);
-    console.log(answer);
+    if (result === "S") {
+      answer.push(Math.pow(Number.parseInt(number), 1));
+      number = "";
+      continue;
+    }
+    if (result === "D") {
+      answer.push(Math.pow(Number.parseInt(number), 2));
+      number = "";
+      continue;
+    }
+    if (result === "T") {
+      answer.push(Math.pow(Number.parseInt(number), 3));
+      number = "";
+      continue;
+    }
+    number += result;
   }
-  return answer;
+  let sum = 0;
+  answer.forEach((n) => (sum = sum + n));
+  return sum;
 }
-
-console.log(solution("1S2D*3T"));
