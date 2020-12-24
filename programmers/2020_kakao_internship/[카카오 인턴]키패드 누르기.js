@@ -31,26 +31,26 @@ function solution(numbers, hand) {
         const distanceFromLeft =  Math.abs(leftX) + Math.abs(leftY);
         const distanceFromRight =  Math.abs(rightX) + Math.abs(rightY);
         
-        if(numbers[i]===1 ||numbers[i]===4 ||numbers[i]===7){
-            answer +="L"
+        if(numbers[i] === 1 || numbers[i] === 4 || numbers[i] === 7){
+            answer += "L"
             currentLeftPos = numPos;
             continue;  
         }
 
-        if(numbers[i]===3 ||numbers[i]===6 ||numbers[i]===9)
+        if(numbers[i] === 3 || numbers[i] === 6 || numbers[i] === 9)
         {
-            answer +="R"
+            answer += "R"
             currentRightPos = numPos;
             continue;  
         }
 
-        if(distanceFromLeft===distanceFromRight){
-            if(hand==="right"){
-                answer+="R"
+        if(distanceFromLeft === distanceFromRight){
+            if(hand === "right"){
+                answer += "R"
                 currentRightPos = numPos;
             }
             else{
-                answer+="L"
+                answer += "L"
                 currentLeftPos = numPos;
             }
             continue;
