@@ -3,9 +3,11 @@
 #include <vector>
 #include <set>
 using namespace std;
+
 set<int> ans;
 int a[101];
 int visit[101];
+
 void backtracking(vector <int> numbers, int level){
     if(level==2){
         int sum = 0;
@@ -21,9 +23,9 @@ void backtracking(vector <int> numbers, int level){
             backtracking(numbers,level+1);
             visit[i] = 0;
         }
-
     }
 }
+
 vector<int> solution(vector<int> numbers) {
     vector<int> answer;
     backtracking(numbers,0);
