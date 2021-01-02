@@ -1,7 +1,6 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
 int cnt[200001];
 int solution(vector<int> nums)
 {
@@ -12,6 +11,5 @@ int solution(vector<int> nums)
         if(!cnt[nums[i]]) category++;
         cnt[nums[i]]++;
     }
-
     return min(category,size/2);
 }
