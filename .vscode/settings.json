@@ -19,6 +19,7 @@
         "regex": "cpp",
         "utility": "cpp",
         "valarray": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "*.tcc": "cpp"
     }
 }
