@@ -28,7 +28,6 @@ void backtracking(string word, string w, int idx, int level,int source){
             check[i] = 0;
         }
     }
-
 }
 
 int main(){
@@ -36,9 +35,7 @@ int main(){
         cin >> word;
         memset(check,0,sizeof(check));
         memset(cnt,0,sizeof(cnt));
-        m.clear();
         if(word=="*")break;
-
         backtracking(word,"",0,0,0);
         if(isSuprising()){
             cout << word << " is surprising.\n";
