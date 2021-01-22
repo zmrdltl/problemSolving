@@ -11,11 +11,10 @@ int main(){
             if(a == b) round--;
             break;  
         } 
-        if(a % 2 == 1)a = a/2 + 1;
+        if(a % 2 == 1) a = a/2 + 1;
         else a /= 2;
         if(b % 2 == 1) b = b/2 + 1;
         else  b /= 2;
     }
     cout << round <<'\n';
-
 }
