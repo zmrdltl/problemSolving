@@ -3,7 +3,6 @@ function solution(record) {
   const map = new Map();
   for (let i = 0; i < record.length; i++) {
     record[i] = record[i].split(" ");
-    const stat = record[i][0];
     const id = record[i][1];
     const nickName = record[i][2];
     if (nickName) map.set(id, nickName);
