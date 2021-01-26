@@ -20,7 +20,7 @@ int binarySearch(int n, int c, int home[200001]){
 }
 
 int main(){
-    int n,c,MAX=0;
+    int n,c;
     int home[200001];
     cin >> n >> c;
     for(int i = 0; i < n; i++) 
