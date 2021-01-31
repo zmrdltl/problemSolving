@@ -5,7 +5,7 @@ int team[20][20];
 int check[20];
 int ans = 0x7f7f7f7f;
 
-int getSynergy(vector <int> oneTeam){
+int getSynergy(vector <int> &oneTeam){
     int synergy = 0;
     int size = oneTeam.size();
     for(int i = 0; i < size; i++){
