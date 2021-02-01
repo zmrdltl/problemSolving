@@ -8,7 +8,7 @@ long long solution(int n, vector<int> works) {
         pq.push(works[i]);
     }
     for(int i = 0; i < n; i++){
-        if(pq.top()>0){
+        if(pq.top() > 0){
             long long t = pq.top() - 1;
             pq.pop();
             pq.push(t);
