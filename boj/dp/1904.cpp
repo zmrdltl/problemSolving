@@ -1,10 +1,11 @@
 #include <iostream>
-#include <vector>
-
+#define ll long long
 using namespace std;
 int n;
-vector <pair<int,int>> v(101);
+ll d[1000001] = {0,1,2,};
 int main(){
     cin >> n;
-    
+    for(int i = 3; i <= n; i++)
+        d[i] = (d[i-1] + d[i-2]) % 15746;
+    cout << d[n] << '\n';
 }
