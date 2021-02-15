@@ -22,12 +22,10 @@ vector<int> solution(vector<string> gems) {
     int gemsNum = gems.size();
 
     while(1){
-        //종류별로 모았다.
         if(cnt == gemsCategory) cnt -= (--m[gems[l++]] == 0);
         else if(r==gemsNum) break;
         else cnt += (m[gems[r++]]++ == 0);  
         if(cnt == gemsCategory) answer.push_back({l+1,r});  
-        // cout << cnt << '\n';
     }
     sort(answer.begin(),answer.end(), cmp);
     return {answer[0].first,answer[0].second};
