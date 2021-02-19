@@ -6,8 +6,8 @@ vector <string> sequence;
 stack <string> s;
 
 bool cmp(string &a, string &b){
-    string alpha = a.substr(0,2);
-    string alpha2 = b.substr(0,2);
+    string alpha = a.substr(0,1);
+    string alpha2 = b.substr(0,1);
     int num1 = stoi(a.substr(2));
     int num2 = stoi(b.substr(2));
     if(alpha == alpha2) return num1 < num2;
