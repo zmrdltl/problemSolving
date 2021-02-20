@@ -13,14 +13,11 @@ int main(){
         cin >> lecture[i].first >> lecture[i].second;
     sort(lecture.begin(), lecture.end());
     pq.push(lecture[0].second);
-    
-    for(int i = 1; i < n; i++){
-        if(pq.top() <= lecture[i].first){
-            pq.pop();
-            pq.push(lecture[i].second);
-        }else pq.push(lecture[i].second);
-    }
 
+    for(int i = 1; i < n; i++){
+        if(pq.top() <= lecture[i].first) pq.pop();
+        pq.push(lecture[i].second);
+    }
     cout << pq.size() << '\n';
 }
 
