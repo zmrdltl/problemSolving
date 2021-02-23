@@ -22,7 +22,7 @@ int main(void) {
 
         if(i * 3 <= n && d[i*3] > d[i] + 1){
             d[i*3] = d[i] + 1;
-            arr[i*3] =i;
+            arr[i*3] = i;
         }
     }
     cout << d[n] << '\n';
