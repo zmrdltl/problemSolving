@@ -29,7 +29,6 @@ int main(void){
                     while (!maxHeap.empty() && !visited[maxHeap.top().second])
                         maxHeap.pop();
                     if (!maxHeap.empty()){
-                        //pop하므로 유효하지 않다고 표시
                         visited[maxHeap.top().second] = false;
                         maxHeap.pop();
                     }
