@@ -7,24 +7,27 @@ using vii = vector<pair<int,int>>;
 using pii = pair<int,int>;
 
 vii graph[1000001];
-int d[1000001];
+int dis[1000001];
 int number = 10;
 void dijkstra(int start){
-    d[start] = 0;
-    priority_queue<pii,vii,greater<pii>> pq;
-    pq.push({start, 0});
-
-    while(!pq.empty()){
-        int current = pq.top().first;
-        int distance = pq.top().second;
+    dis[start] = 0;
+    
+    priority_queue<pii> pq;
+    pq.push({0, start});
+    while (!pq.empty()){
+        pair<int, int> cur = pq.top();
+        int currentDistance = -cur.first;
+        int current = cur.second;
         pq.pop();
-        if(d[current] < distance) continue;
-        for(int i = 0; i < graph[current].size(); i++){
-            int next = graph[current][i].first;
-            int nextDistance = distance + graph[current][i].second;
-            if(nextDistance < d[next]) {
-                d[next] = nextDistance;
-                pq.push({next,nextDistance});
+
+        if (currentDistance > dis[current]) continue;
+
+        for (int i = 0; i < graph[current].size(); i++){
+            int nextDistance = graph[current][i].first;
+            int next = graph[current][i].second;
+            if (nextDistance + currentDistance < dis[next]){
+                dis[next] = nextDistance + currentDistance;
+                pq.push(make_pair(-dis[next], next));
             }
         }
     }
@@ -33,7 +36,7 @@ void dijkstra(int start){
 int main(){
     //기본적으로 연결되지 않은 경우 비용은 무한입니다.
     for(int i = 1; i <= number; i++){
-        d[i] = INF;
+        dis[i] = INF;
     }
 
     graph[1].push_back({2,2});
@@ -64,5 +67,5 @@ int main(){
     //1에서 i번쨰까지 가는데 드는 비용
     dijkstra(1);
 
-    for(int i = 1; i <= number; i++)cout << d[i] << ' ';
+    for(int i = 1; i <= number; i++)cout << dis[i] << ' ';
 }
