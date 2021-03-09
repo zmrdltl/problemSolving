@@ -13,12 +13,11 @@ vector <pii> graph[20001];
 void dijkstra(){
     dis[start] = 0;
     
-    priority_queue<pii> pq;
+    priority_queue<pii,vector<pii>,greater<pii>> pq;
     pq.push({0, start});
     while (!pq.empty()){
-        pair<int, int> cur = pq.top();
-        int currentDistance = -cur.first;
-        int current = cur.second;
+        int currentDistance = pq.top().first;
+        int current = pq.top().second;
         pq.pop();
 
         if (currentDistance > dis[current]) continue;
@@ -28,7 +27,7 @@ void dijkstra(){
             int next = graph[current][i].second;
             if (nextDistance + currentDistance < dis[next]){
                 dis[next] = nextDistance + currentDistance;
-                pq.push(make_pair(-dis[next], next));
+                pq.push({dis[next], next});
             }
         }
     }
