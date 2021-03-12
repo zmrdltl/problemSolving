@@ -1,39 +1,48 @@
 #include <iostream>
 #include <queue>
+#define MAX 100001
 using namespace std;
-int c[100001], n, k, t;
-queue <int> q;
-//i에 도착하는 경우의 수 d[i];
-int bfs()
-{
-	q.push(n);
-	c[n] = 1;
-	while (!q.empty()){
-		int x = q.front();
-		q.pop();
-		if (x == k) return c[x] - 1;
-		if (x - 1 >= 0 && !c[x - 1]) {
-            c[x - 1] = c[x] + 1; 
-            q.push(x - 1); 
+using pii = pair<int,int>;
+ 
+int cnt;
+int minSec;
+int visited[MAX];
+int n,k;
+int bfs(){
+    queue<pii> q;
+    q.push({n, 0});
+    visited[n] = 1;
+    while (!q.empty()){
+        int pos = q.front().first;
+        int sec = q.front().second;
+        q.pop();
+        visited[pos] = 1; 
+        if(pos == k){
+            //최소시간이 겹치면 
+            if (minSec && minSec == sec) cnt++;
+            
+            //첫 빠따 제일 최소시간
+            if (!minSec){
+                minSec = sec;
+                cnt++;
+            }
         }
-		if (x + 1 <= 100000 && !c[x + 1]) { 
-            c[x + 1] = c[x] + 1; 
-            q.push(x + 1); 
-        }
-		if (2 * x <= 100000 && !c[2 * x]) {
-            c[2 * x] = c[x] + 1; 
-            q.push(2 * x); 
-        }
-	}
+
+        if (pos + 1 < MAX && !visited[pos + 1])
+            q.push({pos + 1, sec + 1});
+        if (pos - 1 >= 0 && !visited[pos - 1])
+            q.push({pos - 1, sec + 1});
+        if (pos * 2 < MAX && !visited[pos * 2])
+            q.push({pos * 2, sec + 1});
+    }
+    return minSec;
 }
 
-int main() {
-	cin >> n >> k;
-	t = bfs();
-    int ans = 0;
-    for(int i = 1; i <= 100000; i++){
-        if(c[i] - 1 == k) ans++;
-    }
-    cout << t <<'\n';
-    cout << ans <<'\n';
+ 
+int main(void){
+    cin >> n >> k;
+    cout << bfs() << '\n';
+    cout << cnt << '\n';;
 }
+
+
