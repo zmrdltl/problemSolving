@@ -1,25 +1,20 @@
-#include <iostream>
-#include <cstring>
-#include <algorithm>
+// d[i][j] = i¹øÂ° °è´ÜÀ» j¹ø ¿¬¼ÓÀ¸·Î ¿Ã¶ó°¥ ¶§ ÃÖ´ë°ª
+// d[i][1] => 1¹ø ¿¬¼ÓÀ¸·Î ¿Ã¶ó°¬À¸¹Ç·Î i-2¹øÂ° °è´ÜÀº ¿Ã¶ó°¡°Å³ª °Ç³Ê¶Ù°Å³ª »ó°ü¾ø½À´Ï´Ù. µû¶ó¼­ ´ÙÀ½ Á¡È­½ÄÀ» µû¸¨´Ï´Ù.
+// d[i][1] = max(d[i-2][1], d[i-2][2]) + stair[i] 
+// d[i][2] => 2¹ø ¿¬¼ÓÀ¸·Î ¿Ã¶ó°¬À¸¹Ç·Î °Å²Ù·Î »ý°¢ÇßÀ» ¶§ i-2¹øÂ° °è´ÜÀº ¿Ã¶ó°¬À¸¸é ¾ÈµÇ¹Ç·Î.
+// d[i][2] = d[i-1][1] + stair[i] ÀÔ´Ï´Ù.
+#include <bits/stdc++.h>
 using namespace std;
-int n;
 int stair[301];
 int d[301][3];
-//TODO ë¯¸êµ¬í˜„
-int dp(int n,int k){
-    int &ret = d[n][k];
-    if(ret!=-1) return ret;
-    if(n==0) return 0;
-    for(int i = 1; i<n; i++){
-        d[i][2] = dp(i-1,1) + stair[i];
-        d[i][1] = max(dp(i-2,i),dp(i-2,2)+stair[i]);
-    }
-    return ret;
-}
-
+int n;
 int main(){
     cin >> n;
-    for(int i = 0; i < n; i ++) cin >> stair[i];
-    memset(d,-1,sizeof(d));
-    cout << dp(n,1);
+    for(int i = 1; i <= n; i++) cin >> stair[i];
+    d[1][1] = stair[1];
+    for(int i = 2; i <= n; i++){
+        d[i][1] = max(d[i-2][1],d[i-2][2]) + stair[i];
+        d[i][2] = d[i-1][1] + stair[i];
+    }
+    cout << max(d[n][1],d[n][2]);
 }
