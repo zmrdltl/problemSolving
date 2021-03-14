@@ -5,13 +5,12 @@ int cnt, currentPulse, time;
 int main(){
     cin >> N >> m >> M >> T >> R;
     currentPulse = m;
+    if(currentPulse + T > M){
+        cout << -1 << '\n';
+        return 0;
+    } 
     for(int cnt = 0; cnt < N;){
         time++;
-        if(currentPulse + T > M && currentPulse ==m){
-            cout << -1 << '\n';
-            return 0;
-        } 
-
         if(currentPulse + T <= M){
             currentPulse += T;
             cnt++;
