@@ -19,6 +19,7 @@ string getAns(){
     tmp += to_string(waitTime);
     return tmp;
 }
+
 int main(){
     scanf("%d:%d:%d",&nowTime[0],&nowTime[1],&nowTime[2]);
     scanf("%d:%d:%d",&doTime[0],&doTime[1],&doTime[2]);
