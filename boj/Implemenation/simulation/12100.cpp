@@ -10,25 +10,36 @@ int dx[]={-1,0,1,0};
 int dy[]={0,1,0,-1};
 //dir = 0 : 상, 1 : 우, 2 : 하, 3 : 좌로 이동
 void moveBlock(int dir){
-    queue <pii> q;
+    queue <pii> q; //값,열
     int isCombined[21][21];
     memset(isCombined,0,sizeof(isCombined));
-    if(dir == 0){
-        for(int i = 1; i < n; i++){
-            for(int j = 0; j < n; j++){
-                if(boardCopy[i][j] == boardCopy[i-1][j] && !isCombined[i-1][j]){
-                    isCombined[i-1][j] = 1;
-                    q.push({boardCopy[i-1][j] + boardCopy[i][j],j});
-                    boardCopy[i-1][j] = 0;
-                    boardCopy[i][j] = 0;
-                }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            if(j < n-1 && boardCopy[j][i] != 0 && boardCopy[j][i] == boardCopy[j+1][i] ){
+                q.push({boardCopy[j][i] + boardCopy[j+1][i],i});
+                boardCopy[j][i] = 0;
+                boardCopy[j+1][i] = 0;
+                j++;
             }
+            if(boardCopy[j][i])
+                q.push({boardCopy[j][i],i});
         }
-        while(!q.empty()){
-            int val = q.front().first;
-            int col = q.front().second;
-            for()
+    }
+    //q에 다 저장되어 있음
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            boardCopy[i][j] = 0;
         }
+    }
+    //boardCopy에 바뀐 값 저장
+    int rowPivot = 0;
+    int colPivot = 0; //지금 어떤 열 할 차례다
+    while(!q.empty()){
+        int val = q.front().first;
+        int col = q.front().second;
+        q.pop();
+        if(colPivot != col) {colPivot = col,rowPivot = 0;}
+        boardCopy[rowPivot++][col] = val;
     }
 }
 
@@ -48,6 +59,9 @@ int getMaxBlock(){
     return big;
 }
 
+void rotateBoardCopy(){
+    
+}
 void printBoardCopy(){
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++) cout << boardCopy[i][j] << ' ';
