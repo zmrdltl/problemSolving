@@ -1,36 +1,27 @@
-//TODO
 #include <bits/stdc++.h>
 using namespace std;
-using tpl = tuple<int,int,int>;
 using pii = pair<int,int>;
 int n, m;
 vector <int> v[101];
 int bfs(){
     int visited[101];
+    memset(visited,0,sizeof(visited));
     int ans = 0x3f3f3f3f;
     queue <pii> q;
-    q.push({1,0});
+    q.push({1,0}); //현재 위치, 주사위 던진 횟수
+    
     visited[1] = 1;
-    for(int i = 1; i <= 100; i++){
-        if(!v[i].size())continue;
-        if(v[i][0] % 6) q.push({v[i][0], v[i][0] / 6 + 1});
-        else q.push({v[i][0], v[i][0] / 6});
-    }
-
     while(!q.empty()){
-        int start = q.front().first;
+        int x = q.front().first;
         int moved = q.front().second;
+        if(x == 100) {ans = min(ans, moved); break;}
         q.pop();
-        for(int i = 0; i < v[start].size(); i++){
-            int next = v[start][i];
-            if(visited[next])continue;
-            visited[next] = 1;
-            int dist = abs(start-next);
-            int newMove;
-            if(dist%6) newMove = dist / 6 + 1;
-            else newMove = dist / 6;
-            q.push({next ,newMove + moved});
-            ans = min(ans,newMove + moved);
+        for(int i = 1; i <= 6; i++){
+            int nx = x + i;
+            if(nx > 100 || visited[nx]) continue;
+            visited[nx] = 1;
+            if(!v[nx].size()) q.push({nx,moved + 1});
+            else q.push({v[nx][0],moved + 1});
         }
     }
     return ans;
@@ -43,7 +34,5 @@ int main(){
         cin >> start >> end;
         v[start].push_back(end);
     }
-
     cout << bfs() << '\n';
-
 }
