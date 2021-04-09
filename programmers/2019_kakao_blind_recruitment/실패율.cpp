@@ -14,7 +14,7 @@ vector<int> solution(int N, vector<int> stages) {
     map<int,int> loser;
     for(auto &s : stages) loser[s]++;
 
-    for(int i = 1; i<=N; i++){
+    for(int i = 1; i<= N; i++){
         double loseRate = (double)loser[i] / (double)(people - accumulate);
         if(people - accumulate <= 0) loseRate = 0;
         loseRatio.push_back({loseRate,i});
