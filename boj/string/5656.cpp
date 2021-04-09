@@ -27,11 +27,7 @@ int main(){
         else if(b == "!="){
             if(a != c) flag = 1;
         }
-
-        if(flag){
-            printf("Case %d: true\n", ca);
-        }else{
-            printf("Case %d: false\n", ca);
-        }
+        if(flag) printf("Case %d: true\n", ca);
+        else printf("Case %d: false\n", ca);
     }
 }
