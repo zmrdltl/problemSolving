@@ -16,7 +16,6 @@ int main(){
         sort(v.begin(),v.end());
         for(ll i = 0; i < v.size(); i++){
             ans += upper_bound(v.begin(),v.end(),v[i]+k) - (v.begin() + i + 1);
-            //cout << "el. , ans : " << el.first  << ' ' << ans <<'\n';
         }
     }
 
