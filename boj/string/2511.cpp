@@ -9,7 +9,7 @@ int main(){
         else if(a[i] > b[i]) aCnt+=3;
         else bCnt+=3;
     }
-    cout << max(aCnt,bCnt) << ' ' << min(aCnt,bCnt) <<'\n';
+    cout << aCnt << ' ' << bCnt <<'\n';
 
     if(aCnt == bCnt && bCnt == 10) cout << "D";
     else if(aCnt == bCnt) {
