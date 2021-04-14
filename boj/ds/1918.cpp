@@ -31,4 +31,3 @@ int main() {
         ans += op.top(), op.pop();
     cout << ans <<'\n';    
 }
-
