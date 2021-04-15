@@ -5,11 +5,10 @@ int d[501][501];
 int cost[501];
 int dp(int i, int j){
     if(i == j) return 0;
-    if(i + 1 == j && j-2) return cost[j] - cost[j-2];
     int &ret = d[i][j];
     if(ret != -1) return ret;
     ret = 0x3f3f3f3f;
-    for(int x = i; x <= j; x++){
+    for(int x = i; x < j; x++){
         ret = min(ret, dp(i,x) + dp(x+1,j) + cost[j] - cost[i-1]);
     }
     return ret;
@@ -17,7 +16,6 @@ int dp(int i, int j){
 
 int main(){
     cin >> t;
-
     while(t--){
         cin >> n;
         memset(d,-1,sizeof(d));
