@@ -16,15 +16,17 @@ int main(){
             w *= 10;
         }
     }    
-    
+
     for(int i = 0; i < 26; i++) 
         if(cost[i]) 
             v.push_back({cost[i],i+'A'});
 
     sort(v.rbegin(),v.rend());
+
     for(int i = 0; i < v.size(); i++) {
         priority[v[i].second] = 9 - i;
     }
+
     ll sum = 0;
     for(int i = 0; i < n; i++){
         int cnt = 1;
@@ -33,5 +35,6 @@ int main(){
             cnt *= 10;
         }
     }
+    
     cout << sum << '\n';
 }
