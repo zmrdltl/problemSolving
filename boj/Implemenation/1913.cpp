@@ -22,23 +22,20 @@ int main(){
                 a[--x][y] = ++cnt;
                 if(cnt == n*n) break;
             }
-            dir = 1;
         }
         else if(dir == 1){
             for(int k = 0; k < piv; k++) a[x][++y] = ++cnt;
             piv++;
-            dir = 2;
         }
         else if(dir == 2){
             for(int k = 0; k < piv; k++) a[++x][y] = ++cnt;
-            dir = 3;
         }
         else if(dir == 3){
             for(int k = 0; k < piv; k++)
                 a[x][--y] = ++cnt;
             piv++;
-            dir = 0;
         }
+        dir = (dir+1)%4;
     }
     
     print();
