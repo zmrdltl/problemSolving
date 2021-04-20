@@ -4,7 +4,6 @@ int n,m,ans;
 vector<int> graph[2001];
 int ck[2001];
 int dfs(int start,int cnt){
-    //cout <<"start , cnt : " << start << ' ' << cnt << '\n';
     if(cnt == 5) return 1;
     if(ck[start]) return 0;
     ck[start] = 1;
@@ -26,6 +25,7 @@ int main(){
         graph[start].push_back(end);
         graph[end].push_back(start);
     }
+    
     for(int i = 0; i < n; i++){
         memset(ck,0,sizeof(ck));
         ans = max(ans,dfs(i,1));
