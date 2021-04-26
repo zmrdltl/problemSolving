@@ -18,17 +18,15 @@ int main(){
         int sum = 0;
         mul *= plusNum[i];
         sum += plusNum[i];
-        if(i-1>=0) mul *= plusNum[i-1], sum += plusNum[i-1];
+        if(i - 1 >= 0) mul *= plusNum[i-1], sum += plusNum[i-1];
         ans += max(mul,sum);
     }
-    
+
     for(int i = 0; i < minusNum.size(); i+=2){
         int mul = 1;
-        int sum = 0;
         mul *= minusNum[i];
-        sum += minusNum[i];
-        if(i+1<minusNum.size()) mul *= minusNum[i+1], sum += minusNum[i+1];
-        ans += max(mul,sum);
+        if(i + 1 < minusNum.size()) mul *= minusNum[i+1];
+        ans += mul;
     }
     cout << ans << '\n';
 }
