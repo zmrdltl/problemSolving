@@ -1,23 +1,19 @@
 #include <bits/stdc++.h>
-#defube 
+#define MOD 1'000'000'000
+#define ll long long
 using namespace std;
-int n,m;
-vector <int> v;
-//k개로 n을 만드는 경우의 수 d
-//d[i][j] = d[i-1][1 ~ j ~ n-1] + 1
-int d[201][201];
-int dp(int i, int j){
-    if(i==0) return 1;
-    int &ret = d[i][j];
+ll n,k;
+ll d[201][201];
+ll dp(ll k, ll n){
+    if(k == 1) return 1;
+    ll &ret = d[k][n];
     if(ret != -1) return ret;
-    for(int t = 1; t < n; t++)
-        ret += (dp(i-1,t) + 1) ;
-
-    return ret;
+    ret = 0;
+    for(ll t = 0; t <= n; t++) ret += dp(k-1,t) % MOD;
+    return ret % MOD;
 }
-
 int main(){
-    cin >> n >> m;
+    cin >> n >> k;
     memset(d,-1,sizeof(d));
-    dp(k,n);
+    cout << dp(k,n) << '\n'; 
 }
