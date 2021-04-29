@@ -39,25 +39,14 @@ int boomed(int i, int j, char c){
     return area;
 }
 
-void print(){
-    for(int i = 0; i < 12; i++){
-        for(int j = 0; j < 6; j++){
-            cout << board[i][j] << ' ';
-        }
-        cout << '\n';
-    }
-    cout << '\n';
-}
-
 void goDown(){
     queue <char> q;
     for(int j = 0; j < 6; j++){
-        for(int i = 11; i >= 0; i--){
-            if(board[i][j]!='.') q.push(board[i][j]);
-        }
-        for(int i = 11; i >= 0; i--){
-            board[i][j] = '.';
-        }
+        for(int i = 11; i >= 0; i--)
+            if(board[i][j]!='.') 
+                q.push(board[i][j]);
+        for(int i = 11; i >= 0; i--) board[i][j] = '.';
+        
         int piv = 11;
         while(!q.empty()){
             int c = q.front();
@@ -68,25 +57,20 @@ void goDown(){
 }
 
 int main(){
-    for(int i = 0; i < 12; i++){
-        cin >> board[i];
-    }
+    for(int i = 0; i < 12; i++) cin >> board[i];
     while(1){
         int area = 0;
         memset(ck,0,sizeof(ck));
 
-        for(int i = 0; i < 12; i++){
-            for(int j = 0; j < 6; j++){
-                if(board[i][j]!='.'){
+        for(int i = 0; i < 12; i++)
+            for(int j = 0; j < 6; j++)
+                if(board[i][j]!='.')
                     area = max(area,boomed(i,j,board[i][j]));
-                    //print();
-                }
-            }
-        }
+
         goDown();
 
         if(area < 4) break;
         else ans++;
     }
-    cout << ans << '\n';
+    cout << ans;
 }
