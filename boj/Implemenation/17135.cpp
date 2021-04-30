@@ -1,18 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
+using pii = pair<int,int>;
 int n, m, d, ans, killedEnemy;
 
-int boardCopy[20][20],board[20][20], ck[20][20], dist[20][20];
+int boardCopy[20][20],board[20][20], ck[20][20], dist[20][20], killCount[20][20];
 
 
 void print(){
     cout << '\n';
-    for(int i = 1; i <= n; i++){
+    for(int i = 1; i <= n ; i++){
         for(int j = 1; j <= m; j++){
             cout << boardCopy[i][j] << ' ';
         }
         cout << '\n';
     }
+    for(int i = 1; i<= m; i++)
+        cout << boardCopy[n+1][i] << ' ';
+    cout << '\n';
 }
 
 void printD(){
@@ -37,7 +41,17 @@ void getDistanceFrom(int arcNum){
     }
 }
 
-void distroyEnemy(int col){
+void killEnemy(){
+    int cnt = 0x3f3f3f3f;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            if(!killCount[i][j]) continue;
+            cnt = min(cnt,killCount[i][j]);
+        }
+    }
+}
+
+void countEnemyToKill(int col){
     int minDist = 0x3f3f3f3f;
     for(int i = 1; i <= n; i++){
         for(int j = 1; j <= m; j++){
@@ -45,13 +59,18 @@ void distroyEnemy(int col){
             minDist = min(minDist,dist[i][j]);
         }
     }
-    for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= m; j++){
-            if(minDist == dist[i][j] ){
-                boardCopy[i][j] = 0;
-                killedEnemy++;
-                return;
-            }
+    // cout << "DIST\n";
+    // for(int i = 1; i <= n; i++){
+    //     for(int j = 1; j <= m; j++){
+    //         cout << dist[i][j] << ' ';
+
+    //     }
+    //     cout << '\n';
+    // }
+    for(int i = 1; i <= m; i++){
+        for(int j = n; j >= 1; j--){
+            if(minDist != dist[i][j]) continue;
+            killCount[i][j]++;
         }
     }
 }
@@ -84,24 +103,25 @@ void copyBoard(){
             boardCopy[i][j] = board[i][j];
         }
     }
-
 }
+
 void dfs(int depth, int idx){
     if(depth==3){
         killedEnemy = 0;
         copyBoard();
         while(enemyExist()){
+            memset(killCount,0,sizeof(killCount));
             for(int arcNum = 1; arcNum <= m; arcNum++) {
                 if(!boardCopy[n+1][arcNum]) continue;
                 getDistanceFrom(arcNum);
-                distroyEnemy(arcNum);
-                // cout << "ARCNUM : " << arcNum << '\n';
-                cout << "BORD :";
-                print();
-                // cout << "dist : ";
-                // printD();
+                countEnemyToKill(arcNum);
+                // cout << "BORDCOPY :";
+                // print();
             }
+            killEnemy();
             goDown();
+            // cout << "GODOWN :";
+            // print();
             ans = max(ans,killedEnemy);
         }
 

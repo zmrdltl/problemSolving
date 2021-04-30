@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
+int n,m;
 int dx[] = {0, 1, 1, 1, 0, 0, 0, -1, -1,-1};
 int dy[] = {0,-1, 0, 1,-1, 0, 1, -1,  0, 1};
-int n,m;
 string moveInfo;
-char board[101][101];
 struct Jongsu {int x, y;};
 Jongsu jongsu;
+char board[101][101];
 map <pair<int,int>,int> arduino;
 
 int moveJongsu(int dir, int move){
