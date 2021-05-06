@@ -1,39 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
-int board[51][51], boardCopy[51][51];
-int n,m,k, ans=0x3f3f3f3f;
-int ck[10];
+int board[51][51], boardCopy[51][51],ck[10];
+int n, m, k, ans=0x3f3f3f3f;
 vector <int> comb;
 vector <vector<int>> op;
 
 void rotate(int x1, int y1, int x2, int y2){
     int curVal = boardCopy[x1][y1];
     //상단 우측으로
-    for(int i = y1+1; i <= y2; i++){
-        int tmp = curVal;
-        curVal = boardCopy[x1][i];
-        boardCopy[x1][i] = tmp;
-    }
+    for(int i = y1+1; i <= y2; i++)
+        swap(curVal,boardCopy[x1][i]);
     //우측 아래로
-    for(int i = x1+1; i <= x2; i++){
-        int tmp = curVal;
-        curVal = boardCopy[i][y2];
-        boardCopy[i][y2] = tmp;
-    }
-
+    for(int i = x1+1; i <= x2; i++)
+        swap(curVal,boardCopy[i][y2]);
     //하단 좌측으로
-    for(int i = y2-1; i >= y1; i--){
-        int tmp = curVal;
-        curVal = boardCopy[x2][i];
-        boardCopy[x2][i] = tmp;
-    }
-
+    for(int i = y2-1; i >= y1; i--)
+        swap(curVal, boardCopy[x2][i]);
     //좌측 상단으로
-    for(int i = x2 - 1; i >= x1; i--){
-        int tmp = curVal;
-        curVal = boardCopy[i][y1];
-        boardCopy[i][y1] = tmp;
-    }
+    for(int i = x2 - 1; i >= x1; i--)
+        swap(curVal, boardCopy[i][y1]);
 }
 
 int getMinValFromRow(){
@@ -53,7 +38,6 @@ void copyBoard(){
         }
     }
 }
-
 
 void dfs(int depth){
     if(depth == k){
