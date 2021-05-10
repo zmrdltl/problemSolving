@@ -6,7 +6,7 @@
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
       "compilerPath": "C:\\MinGW\\bin\\g++.exe",
       "cStandard": "gnu11",
-      "cppStandard": "gnu++14",
+      "cppStandard": "gnu++17",
       "intelliSenseMode": "gcc-x64"
     }
   ],

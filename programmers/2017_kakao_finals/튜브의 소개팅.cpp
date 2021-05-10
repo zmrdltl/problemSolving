@@ -17,11 +17,8 @@ vector <int> dijsktra(){
     //dist, s, x, y
     pq.push({0,0,0,0});
     while(!pq.empty()){
-        ll dist = get<0>(pq.top());
-        ll cost = get<1>(pq.top());
-        int x = get<2>(pq.top());
-        int y = get<3>(pq.top());
-
+        auto [dist,cost,x,y] = pq.top();
+        
         pq.pop();
 
         for(int dir = 0; dir < 4; dir++){
