@@ -47,6 +47,22 @@ void sortAll(vector <int> d[3][2][2][2]){
     }
 }
 
+int getAns(int al, int bl, int aj, int bj, int ac, int bc, int as, int bs,int score, vector <int> d[3][2][2][2]){
+    int cnt = 0;
+    for(int l = al; l <= bl; l++){
+        for(int j = aj; j <= bj; j++){
+            for(int c = ac; c <= bc; c++){
+                for(int s = as; s <= bs; s++){
+                    int size = d[l][j][c][s].size();
+                    int idx = lower_bound(d[l][j][c][s].begin(),d[l][j][c][s].end(),score) - d[l][j][c][s].begin();
+                    cnt += size - idx;
+                }
+            }
+        }
+    }
+    return cnt;
+}
+
 vector<int> solution(vector<string> info, vector<string> query) {
     vector<int> answer;
     //언어, 지원 직군, 경력구분, 소울푸드
@@ -63,7 +79,7 @@ vector<int> solution(vector<string> info, vector<string> query) {
     sortAll(d);
     
     for(int i = 0; i < query.size(); i++){
-        int al, bl, aj, bj, ac, bc, as, bs, cnt = 0;
+        int al, bl, aj, bj, ac, bc, as, bs;
         vector <string> splitedQeury = split(query[i], ' ');
         int languageNum = getLanguageNum(splitedQeury[0]);
         int jobNum = getJobNum(splitedQeury[2]);
@@ -83,17 +99,8 @@ vector<int> solution(vector<string> info, vector<string> query) {
         if(soulFoodNum == 2) as = 0, bs = 1;
         else as = bs = soulFoodNum;
 
-        for(int l = al; l <= bl; l++){
-            for(int j = aj; j <= bj; j++){
-                for(int c = ac; c <= bc; c++){
-                    for(int s = as; s <= bs; s++){
-                        int idx = d[l][j][c][s].size() - (lower_bound(d[l][j][c][s].begin(),d[l][j][c][s].end(),score) - d[l][j][c][s].begin());
-                        cnt += idx;
-                    }
-                }
-            }
-        }
-        answer.push_back(cnt);
+        
+        answer.push_back(getAns(al, bl, aj, bj, ac, bc, as, bs, score, d));
     }
     return answer;
 }
