@@ -14,17 +14,12 @@ void extract(string &oneWord, string &oneOneZero ){
             dq.pop_back();
             cnt -= 2;
             flag = 1;
+            if(oneWord[i] == '0') i++;
         }
         if(flag) continue;
-        if(cnt < 2) {
-            if(oneWord[i] == '1') cnt++;
-            dq.push_back(oneWord[i]);
-        }
-
+        if(oneWord[i] == '1') cnt++;
+        dq.push_back(oneWord[i]);
         
-        cout << "DQ : \n";
-        for(auto d : dq) cout << d << ' ';
-        cout << '\n';
         if(oneWord[i] == '0') cnt = 0;
     }
 
@@ -35,21 +30,22 @@ void extract(string &oneWord, string &oneOneZero ){
     }
 
     cout << "ÀÏÀÏ¿µ : " <<  oneOneZero << '\n';
-
 }
 
 void insert(string &oneWord, string &oneOneZero ){
-    if(oneWord.size() < 3){
-        oneWord = oneOneZero + oneWord;
-        return;
+    // if(oneWord.size() < 3){
+    //     oneWord = oneOneZero + oneWord;
+    //     return;
+    // }
+    int idx = oneWord.size() - 1;
+    for(int i = oneWord.size() - 1; i >= 2; i--){
+        if(oneWord[i] == '1' && oneWord[i-1] == '1' && oneWord[i-2] == '1') {idx = i - 2;}
     }
-    int idx = oneWord.find("111");
     string tmp;
-    for(int i = 0; i < idx; i++){
-        tmp += oneWord[i];
-    }
+    for(int i = 0; i < idx; i++) tmp += oneWord[i];
+    if(idx == oneWord.size() - 1) {oneWord =  tmp + oneOneZero; return;}
     tmp += oneOneZero;
-    for(int i = idx+1; i < oneWord.size(); i++) tmp += oneWord[i];
+    for(int i = idx + 1; i < oneWord.size(); i++) tmp += oneWord[i];
     oneWord = tmp;
 }
 
@@ -61,6 +57,5 @@ vector<string> solution(vector<string> s) {
         insert(s[i],oneOneZero);
         cout << "insert : " << s[i] << '\n';
     }
-    //sort(s.begin(), s.end());
     return s;
 }
