@@ -11,6 +11,8 @@ int dfs(int cur){
         next.first = 1 + dfs(next.second);
     }
     sort(graph[cur].rbegin(), graph[cur].rend());
+
+    //뉴스를 전하는 순서에 따라 걸리는 시간이 달라진다.
     for(int i = 0; i < graph[cur].size(); i++){
         ret = max(ret, graph[cur][i].first + i);
     }
