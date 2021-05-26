@@ -2,20 +2,23 @@
 using namespace std;
 int n,k;
 vector <string> ans;
-void backtracking(int idx,int m,int num,string op){
-    if(idx == m){
-        if (num == n) ans.push_back(op.substr(1,op.size()-1));
+
+void backtracking(int depth, int m, int num, string prev){
+    if(depth == m){
+        if(!num) ans.push_back(prev.substr(1));
         return;
     }
-    backtracking(idx + 1, m, num + 1, op + "+1");
-    backtracking(idx + 1, m, num + 2, op + "+2");
-    backtracking(idx + 1, m, num + 3, op + "+3");
+    backtracking(depth + 1, m, num - 1, prev + "+1");
+    backtracking(depth + 1, m, num - 2, prev + "+2");
+    backtracking(depth + 1, m, num - 3, prev + "+3");
 }
 
 int main(){
     cin >> n >> k;
-    for(int i = 1; i <= n; i++) backtracking(0,i,0,"");
+    for(int i = 1; i <= n; i++){
+        backtracking(0,i,n,"");
+    }
     sort(ans.begin(),ans.end());
-    if(ans.size() >= k) cout << ans[k-1];
-    else cout << "-1";
+    if(ans.size() < k) cout << -1 << '\n';
+    else cout << ans[k-1] << '\n';
 }
