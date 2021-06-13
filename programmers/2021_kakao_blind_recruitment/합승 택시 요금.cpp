@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 #define INF 1000000000
+#define ll long long
 using namespace std;
-int charge[201][201], ans, N;
+ll charge[201][201], N, ans;
 
 void initCharge(){
     for(int i = 1; i <= N; i++){
@@ -24,7 +25,6 @@ void makeFloyd(){
         for(int i = 1; i <= N; i++){
             for(int j = 1; j <= N; j++){
                 if(i == j || j == k || i == k) continue;
-                if(charge[i][k] == INF || charge[k][j] == INF) continue;             
                 charge[i][j] = min(charge[i][j],charge[i][k] + charge[k][j]);
             }
         }
@@ -40,8 +40,8 @@ int solution(int n, int s, int a, int b, vector<vector<int>> fares) {
 
     for(int i = 1; i <= N; i++){
         //n까지 동승해서 흩어지는 것이 기존 따로 가는 것보다 작다면
-        if(charge[s][i] == INF || charge[i][a] == INF || charge[i][b] == INF) continue;
         ans = min(ans,charge[s][i] + charge[i][a] + charge[i][b]);
     }
-    return ans;
+
+    return (int)ans;
 }
