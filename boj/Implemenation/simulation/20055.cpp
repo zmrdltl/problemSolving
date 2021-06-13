@@ -50,19 +50,6 @@ int getZeroDuration(vector <square> &belt){
     return cnt;
 }
 
-void print(vector <square> &belt){
-    cout << "belt : ";
-    for(int i  =0; i < 2*n; i++){
-        cout << belt[i].durability << ' ';
-    }
-    cout << '\n';
-    cout << "robot : ";
-    for(int i  =0; i < 2*n; i++){
-        cout << belt[i].robot << ' ';
-    }
-    cout << '\n';
-    cout << '\n';
-}
 int beltProcess(vector <square> &belt,int k){
     int processNum = 0;
     while(1){
