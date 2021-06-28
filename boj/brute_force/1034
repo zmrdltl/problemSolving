@@ -1,0 +1,88 @@
+#include <bits/stdc++.h>
+using namespace std;
+// int n, m, k, ans;
+// int lamp[51][51];
+// int main() {
+//     cin >> n >> m;
+
+//     for (int i = 0; i < n; i++)
+//         for (int j = 0; j < m; j++)
+//             scanf("%1d", &lamp[i][j]);
+//     cin >> k;
+
+//     vector<int> zeroCntRow;
+//     for (int i = 0; i < n; i++) {
+//         int cnt = 0;
+//         for (int j = 0; j < m; j++) {
+//             if (lamp[i][j] == 0) cnt++;
+//         }
+//         zeroCntRow.push_back(cnt);
+//     }
+//     for (auto z : zeroCntRow) cout << z << ' ';
+//     cout << '\n';
+
+//     vector<int> sameCntColAndRow;
+
+//     for (int i = 0; i < n; i++) {
+//         int cnt = 0;
+//         for (int j = 0; j < n; j++) {
+//             if (lamp[i] == lamp[j]) {
+//                 cnt++;
+//             }
+//         }
+//         sameCntColAndRow.push_back(cnt);
+//     }
+
+//     for (int s : sameCntColAndRow) cout << s << ' ';
+//     cout << '\n';
+
+//     for (int i = 0; i < n; i++) {
+//         if (zeroCntRow[i] <= k && (k - zeroCntRow[i]) % 2 == 0) {
+//             ans = max(ans, sameCntColAndRow[i]);
+//         }
+//     }
+
+//     cout << ans << '\n';
+// }
+
+int main() {
+    int n, m, k, tmp, result = 0;
+    vector<string> lamps;
+
+    // input
+    cin >> n >> m;
+    lamps.assign(n, "");
+    for (int i = 0; i < n; i++) {
+        cin >> lamps[i];
+    }
+    cin >> k;
+
+    // solve
+    vector<int> off(n, 0);
+    for (size_t i = 0; i < n; i++) {
+        tmp = 0;
+        for (size_t j = 0; j < m; j++) {
+            if (lamps[i][j] == '0') {
+                tmp++;
+            }
+        }
+        off[i] = tmp;
+    }
+    vector<int> cor(n, 0);
+    for (size_t i = 0; i < n; i++) {
+        tmp = 0;
+        for (size_t j = 0; j < n; j++) {
+            if (lamps[i] == lamps[j]) {
+                tmp++;
+            }
+        }
+        cor[i] = tmp;
+    }
+    for (size_t i = 0; i < n; i++) {
+        if (off[i] <= k && (k - off[i]) % 2 == 0) {
+            result = result < cor[i] ? cor[i] : result;
+        }
+    }
+
+    cout << result << endl;
+}
