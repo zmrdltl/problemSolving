@@ -18,7 +18,6 @@ int solution(int n, vector<int> weak, vector<int> dist) {
     sort(dist.begin(),dist.end());
     int ans = 0x3f3f3f3f;
     do{
-
         int wSize = weak.size();
         int dSize = dist.size();
         int cnt = 0;
