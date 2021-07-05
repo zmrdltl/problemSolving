@@ -1,69 +1,33 @@
 #include <bits/stdc++.h>
-#define ll long long 
 using namespace std;
-map <string,int> m;
-int distCk[10];
-int weakCk[201];
 
-bool isAllCovered(vector<int> &weak){
-    for(auto w : weak){
-        if(!weakCk[w]) return false;
-    }
-    return true;
+vector <int> rotateWeak(int n, vector<int> weak){
+    vector <int> tmp;
+    for(int i = 1; i < weak.size(); i++) tmp.push_back(weak[i]);
+    tmp.push_back(weak[0] + n);
+    return tmp;
 }
+
 int solution(int n, vector<int> weak, vector<int> dist) {
-    memset(distCk,0,sizeof(distCk));
-    memset(weakCk,0,sizeof(weakCk));
-    sort(weak.begin(),weak.end());
-    sort(dist.begin(),dist.end());
-    int ans = 0x3f3f3f3f;
-    do{
-        int wSize = weak.size();
-        int dSize = dist.size();
-        int cnt = 0;
-        memset(distCk,0,sizeof(distCk));
-        memset(weakCk,0,sizeof(weakCk));
-        for(int i = 0; i < wSize; i++){
-            if(weakCk[weak[i]]) continue;
-            
-            int gap = weak[(i+1) % wSize] - weak[i];
-            if(i == wSize - 1) gap = weak[0] + n - weak[i];
-            
+ 
+    int answer = 0x3f3f3f3f;
+ 
+    sort(dist.begin(), dist.end());
+    do {
+        for (int i = 0; i < weak.size(); i++) {
+            weak = rotateWeak(n,weak);
+ 
+            int weakIdx = 0;
+            int distIdx = 0;
 
-            for(int j = 0; j < dSize; j++){
-                if(distCk[j]) continue;
-                if(gap <= dist[j]){
-                   // cout << "GAP : " << weak[i] << ' ' << weak[(i+1)%wSize] << ' ' << gap << '\n';
-                    
-                    if(i == wSize - 1){
-                        for(int k = weak[i]; k <= n; k++) weakCk[k] = 1;
-                        for(int k = 0; k < weak[0]; k++) weakCk[k] = 1;
-                    }
-                    else{
-                        for(int k = weak[i]; k < weak[i+1]; k++)
-                            weakCk[k] = 1;
-                    }
-                    
-                    distCk[j] = 1;
-                    cnt++;
-                    //cout << gap << "군열 : " << weak[i] << "에 " << dist[j] << "사용" << '\n';
-                    break;
-                }
+            for (distIdx = 0; distIdx < dist.size(); distIdx++) {
+                int coverLength = weak[weakIdx] + dist[distIdx];
+                while (weakIdx != weak.size() && coverLength >= weak[weakIdx]) weakIdx++;
+                if(weakIdx == weak.size()) break;
             }
+            if (weakIdx == weak.size()) answer = min(answer,distIdx + 1);
         }
-        // cout << "CNT : " << cnt << '\n';
-        // cout << "WEAK : " ;
-        // for(int i = 1; i <= 10; i++) cout << weakCk[i] << ' ';
-        // cout << '\n';
-        // cout << "DIST : ";
-        // for(int i = 0; i < dSize; i++) cout << distCk[i] << ' ';
-        // cout << '\n';
-        if(cnt && cnt <= dSize && isAllCovered(weak))
-            ans = min(ans,cnt);
-        // cout << '\n';
-        // cout << '\n';
-    }while(next_permutation(dist.begin(),dist.end()));
-
-    if(ans == 0x3f3f3f3f) return -1;
-    return ans;
+    } while (next_permutation(dist.begin(), dist.end()));
+    if(answer == 0x3f3f3f3f) return -1;
+    return answer;
 }
