@@ -1,9 +1,9 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
- 
+
 const int sz=5e2+1;
 int mn,m,mat[sz][2],memo[sz][sz];
- 
+
 int solve(int s,int e){
     int ret=0;
     if(s==e)return 0;
@@ -20,12 +20,12 @@ int solve(int s,int e){
     return memo[s][e];
 }
 
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);cout.tie(NULL);
- 
-    cin>>m;
-    for(int i=0;i<m;++i)cin>>mat[i][0]>>mat[i][1];
-    mn=solve(0,m-1);
-    cout << mn;
+int solution(vector<vector<int>> matrix_sizes) {
+    memset(mat,0,sizeof(mat));
+    memset(memo,0,sizeof(memo));
+    for(int i  =0; i < matrix_sizes.size(); i++){
+        mat[i][0] = matrix_sizes[i][0];
+        mat[i][1] = matrix_sizes[i][1];
+    }
+    return solve(0,matrix_sizes.size()-1);
 }
