@@ -94,29 +94,29 @@ string solution(int n, int k, vector<string> cmd) {
 }
 
 
-string solution(int n, int k, vector<string> cmd) {
-    set<int> s;
-    stack<int> st;
-    for (int i = 0; i < n; i++) s.insert(i);
-    auto it = s.find(k);
-    for (const auto &str : cmd) {
-        if (str == "C") {
-            auto nxt = next(it);
-            st.push(*it);
-            s.erase(it);
-            it = nxt;
-            if (it == s.end()) --it;
-        } else if (str == "Z") {
-            int top = st.top();
-            st.pop();
-            s.insert(top);
-        } else {
-            int delta = atoi(str.substr(2).c_str());
-            if (str[0] == 'U') delta *= -1;
-            it = next(it, delta);
-        }
-    }
-    string ret(n, 'X');
-    for (const auto &i : s) ret[i] = 'O';
-    return ret;
-}
+// string solution(int n, int k, vector<string> cmd) {
+//     set<int> s;
+//     stack<int> st;
+//     for (int i = 0; i < n; i++) s.insert(i);
+//     auto it = s.find(k);
+//     for (const auto &str : cmd) {
+//         if (str == "C") {
+//             auto nxt = next(it);
+//             st.push(*it);
+//             s.erase(it);
+//             it = nxt;
+//             if (it == s.end()) --it;
+//         } else if (str == "Z") {
+//             int top = st.top();
+//             st.pop();
+//             s.insert(top);
+//         } else {
+//             int delta = atoi(str.substr(2).c_str());
+//             if (str[0] == 'U') delta *= -1;
+//             it = next(it, delta);
+//         }
+//     }
+//     string ret(n, 'X');
+//     for (const auto &i : s) ret[i] = 'O';
+//     return ret;
+// }
