@@ -81,8 +81,8 @@ ll DIV(){
     ll tmp2 = st.top();
     st.pop();
     if(!tmp1) return 1;
-    ll result = abs(tmp2) / abs(tmp1);
-    if((tmp1 < 0 && tmp2 > 0) || (tmp2 < 0 && tmp1 > 0)) result *= -1;
+    ll result = llabs(tmp2) / llabs(tmp1);
+    if(tmp1 * tmp2 < 0) result *= -1;
     st.push(result);
     return 0;
 }
@@ -94,7 +94,7 @@ ll MOD(){
     ll tmp2 = st.top();
     st.pop();
     if(!tmp1) return 1;
-    ll result = abs(tmp2) % abs(tmp1);
+    ll result = llabs(tmp2) % llabs(tmp1);
     if(tmp2 < 0) result *= -1;
     st.push(result);
     return 0;
@@ -134,7 +134,7 @@ int main(){
 				else if (operation[i] == "DIV") isError = DIV();
 				else if (operation[i] == "MOD") isError = MOD();
                 
-				if (!st.empty() && (-LIMIT > st.top() || st.top() > LIMIT )) 
+				if (!st.empty() && (llabs(st.top()) > LIMIT )) 
 					isError = 1;
 
 				if (isError) break;
