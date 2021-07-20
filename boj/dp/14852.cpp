@@ -1,25 +1,23 @@
-#include <iostream>
-#include <cstring>
-#define MOD 1'000'000'007
-using namespace std;
-int d[1000001];
 
-int dp(int d[],int n){
-    if(n == 0) return 1;
-    if(n == 1) return 2;
-    if(n == 2) return 7;
-    int &ret = d[n];
-    if(ret != -1) return ret;
-    ret = 3 * dp(d,n-2) + 2 * dp(d,n-1);
-    for(int i = 3; i <= n; i++){
-        ret += (2 * dp(d,n-i)) % MOD;
-    }
-    return ret % MOD;
-}
-int main(){
+#include <cstdio>
+using namespace std;
+const int MOD = 1e9 + 7;
+int f[1000001];
+int g[1000001];
+
+int main() {
     int n;
-    cin >> n;
-    memset(d,-1,sizeof(d));
-    cout << dp(d,n);
+    scanf("%d", &n);
+
+    // f(n) = f(n-2)+2*g(n)
+    // g(n) = f(n-1)+f(n-2)+g(n-2)
+    f[0] = 1; f[1] = 2;
+    g[0] = 0; g[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        g[i] = ((f[i - 1] + f[i - 2]) % MOD + g[i - 2]) % MOD;
+        f[i] = (f[i - 2] + (2 * g[i]) % MOD) % MOD;
+    }
+
+    printf("%d\n", f[n]);
 
 }
