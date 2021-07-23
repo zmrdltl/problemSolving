@@ -1,10 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 using tpiii = tuple<int,int,int>;
-int n,m;
-int maze[1001][1001];
-int dist[1001][1001][2];
-int isBroken[1001][1001];
+int n, m, maze[1001][1001], dist[1001][1001][2];
 int dx[] = {0,0,1,-1};
 int dy[] = {1,-1,0,0};
 
@@ -21,7 +18,6 @@ int bfs(){
         int w = get<2>(q.front());
         q.pop();
         if(x == escape.x && y == escape.y) return dist[x][y][w];
-
         for(int i = 0; i < 4; i++){
             int nx = x + dx[i];
             int ny = y + dy[i];
@@ -32,6 +28,7 @@ int bfs(){
                 dist[nx][ny][w] = dist[x][y][w] + 1;
                 q.push({nx,ny,w});
             }
+
             if(!w && maze[nx][ny]){
                 dist[nx][ny][1] = dist[x][y][0] + 1;
                 q.push({nx,ny,1});
@@ -44,8 +41,8 @@ int main(){
     cin >> n >> m;
     cin >> falled.x >> falled.y;
     cin >> escape.x >> escape.y;
-    for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= m; j++) cin >> maze[i][j];
-    }
+    for(int i = 1; i <= n; i++)
+        for(int j = 1; j <= m; j++) 
+            cin >> maze[i][j];
     cout << bfs();
 }
