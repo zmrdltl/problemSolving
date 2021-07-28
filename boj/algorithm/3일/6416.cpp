@@ -42,18 +42,18 @@ int main(){
     while(1){
         int edgeCnt = 0;
         map<int,vector<int>> treeMap;
-        set <int> vertax;
+        set <int> vertex;
         int u, v;
         while(1){
             cin >> u >> v;
             edgeCnt++;
-            vertax.insert(u);
-            vertax.insert(v);
+            vertex.insert(u);
+            vertex.insert(v);
             if(u == -1 && v == -1) return 0;
             if(u == 0 && v == 0) break;
             treeMap[u].push_back(v);
         }
-        if(u && v && vertax.size() != edgeCnt + 1) printf("Case %d is not a tree.\n", testCase++);
+        if(u && v && vertex.size() != edgeCnt + 1) printf("Case %d is not a tree.\n", testCase++);
         else{
             if(bfs(treeMap)) printf("Case %d is a tree.\n", testCase++);
             else printf("Case %d is not a tree.\n", testCase++);
