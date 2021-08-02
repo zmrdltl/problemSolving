@@ -8,10 +8,8 @@ void dfs(int depth){
     if(depth == 4) {
         int cnt = 0;
         for(int i = 0; i < v.size(); i++) cnt += digit[v[i]];
-        string hour = "";
-        hour = to_string(v[0]) + to_string(v[1]);
-        string minute = "";
-        minute = to_string(v[2]) + to_string(v[3]);
+        string hour = to_string(v[0]) + to_string(v[1]);
+        string minute = to_string(v[2]) + to_string(v[3]);
         if(cnt == n && hour < "24" && minute < "60") ans = hour + ":" + minute;
         return;
     }
