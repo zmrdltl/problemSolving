@@ -1,9 +1,7 @@
 #include <bits/stdc++.h>
 #define fastio ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 using namespace std;
-int n, m;
-int parent[1000001];
-
+int parent[1000001], n, m;
 
 int find(int x){
     if(parent[x] == x) return x;
@@ -13,25 +11,20 @@ int find(int x){
 void merge(int a, int b){
     a = find(a);
     b = find(b);
-    if(a != b) parent[a] = b;
+    parent[a] = b;
 }
 
 int main(){
     fastio;
     cin >> n >> m;
     for(int i = 0; i <= n; i++) parent[i] = i;
-    //번호 낮은애가 부모 
-    for(int i = 0; i < m; i++){
+    while(m--){
         int op, a, b;
         cin >> op >> a >> b;
-         //합집합
-        if(op == 0) {
-            merge(a,b);
-        }
-
+        if(!op) merge(a,b);
         else {
-            if(find(a) != find(b)) cout << "NO\n";
-            else cout << "YES\n";
+            if(find(a) == find(b)) cout << "YES\n";
+            else cout << "NO\n";
         }
     }
 }
