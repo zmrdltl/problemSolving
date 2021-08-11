@@ -1,60 +1,63 @@
 #include <bits/stdc++.h>
 using namespace std;
 using vvi = vector<vector<int>>;
-int N;
-int dx[] = {0, 0, -1, 1};
-int dy[] = {-1, 1, 0, 0};
+int n;
 vvi board;
+//상,하,좌,우
+const int dy[] = {-1, 1, 0, 0};
+const int dx[] = {0, 0, -1, 1};
 
-struct Robot { int y1, x1, y2, x2; };
+struct Robot{
+    int r1, c1, r2, c2;
+    Robot(int r1, int c1, int r2, int c2): r1(r1), c1(c1), r2(r2), c2(c2){}
 
-Robot move(int d, int x1, int y1, int x2, int y2){
-    return { y1 + dy[d], x1+dx[d], y2+dy[d], x2+dx[d] };
+    Robot move(int d){
+        return Robot(r1+dy[d], c1+dx[d], r2+dy[d], c2+dx[d]);
+    }
+
+    pair<Robot,Robot> rotate(int d){
+        return {Robot(r1, c1, r1+dy[d], c1+dx[d]), Robot(r2, c2, r2+dy[d], c2+dx[d])};
+    }
+};
+
+bool isFinished(Robot &r){
+    return r.r1 == n - 1 && r.c1 == n - 1 || r.r2 == n - 1 && r.c2 == n - 1;
 }
 
-pair <Robot, Robot> rotate(int d, int x1, int y1, int x2, int y2){
-    return {{y1, x1, y1+dy[d], x1+dx[d]}, {y2, x2, y2+dy[d], x2+dx[d]}};
+bool isValid(Robot r){
+    return r.r1>=0 && r.c1>=0 && r.r2>=0 && r.c2>=0 &&
+    r.r1<n && r.c1<n && r.r2<n && r.c2<n &&
+    !board[r.r1][r.c1] && !board[r.r2][r.c2];
 }
 
-bool isDone(int x1, int y1, int x2, int y2){
-    if((x1 == N - 1 && y1 == N-1) || (x2 == N - 1 && y2 == N - 1)) return true;
-    return false;
-}
-
-bool isValid(int x1, int y1, int x2, int y2){
-    if(0 > x1 || x1 >= N || 0 > y1 || y1 >= N) return false;
-    if(board[y1][x1] || board[y2][x2]) return false;
-    return true;
-}
-
+// Robot 구조체를 map의 원소로 사용하기 위한 오버라이딩
 bool operator < (Robot a, Robot b){
-    return tie(a.y1, a.x1, a.y2, a.x2) < tie(b.y1, b.x1, b.y2, b.x2);
+    return tie(a.r1, a.c1, a.r2, a.c2) < tie(b.r1, b.c1, b.r2, b.c2);
 }
 
+// map 안에서의 Robot 중복 처리를 위한 오버라이딩
 bool operator == (Robot a, Robot b){
-    if(tie(a.y1, a.x1, a.y2, a.x2) == tie(b.y1, b.x1, b.y2, b.x2)
-    || tie(a.y1, a.x1, a.y2, a.x2)==tie(b.y2, b.x2, b.y1, b.x1)) return true;
-    return false;
+     return tie(a.r1, a.c1, a.r2, a.c2)==tie(b.r1, b.c1, b.r2, b.c2)
+    || tie(a.r1, a.c1, a.r2, a.c2)==tie(b.r2, b.c2, b.r1, b.c1);
 }
 
-map <Robot, int> dist;
+map<Robot, int> dist;
 
+// 로봇의 평행이동 반환
 vector<Robot> getMoved(Robot& r){
     vector<Robot> ret;
-    for(int i = 0; i < 4;i++) ret.push_back(move(i,r.x1,r.y1,r.x2,r.y2));
+    for(int i = 0; i < 4; i++)
+        ret.push_back(r.move(i));
     return ret;
 }
 
 vector<Robot> getRotated(Robot& r){
     vector<Robot> ret;
-    //i방향으로 움직일 수 있다면 i방향으로 회전가능
     for(int i = 0; i < 4; i++){
-        Robot mr = move(i,r.x1,r.y1,r.x2,r.y2);
-        if(isValid(mr.x1,mr.y1,mr.x2,mr.y2)){
-            pair < Robot,Robot > res = rotate(i,r.x1,r.y1,r.x2,r.y2);
-            ret.push_back(res.first);
-            ret.push_back(res.second);
-        }
+        if(!isValid(r.move(i))) continue;
+        pair<Robot,Robot> res = r.rotate(i);
+        ret.push_back(res.first);
+        ret.push_back(res.second);
     }
     return ret;
 }
@@ -62,29 +65,24 @@ vector<Robot> getRotated(Robot& r){
 int bfs(){
     dist[{0,0,0,1}] = 0;
 
-    queue <Robot> q;
+    queue<Robot> q;
     q.push({0,0,0,1});
 
     while(!q.empty()){
-        int x1 = q.front().x1;
-        int y1 = q.front().y1;
-        int x2 = q.front().x2;
-        int y2 = q.front().y2;
-
+        Robot cur = q.front();
         q.pop();
 
-        int curDist = dist[q.front()];
-        if(isDone(x1,y1,x2,y2)) return curDist; //도착
+        int curDist = dist[cur];
+        if(isFinished(cur)) return curDist; // 목적지 도착
 
-        vector<Robot> next[2] = { getMoved(q.front()), getRotated(q.front())};
+        vector<Robot> next[2] = {getMoved(cur), getRotated(cur)};
 
         for(int i = 0; i < 2; i++){
             for(Robot r: next[i]){
-                // 이 상태가 방문한 적이 없고 유효한 상태일 경우
-                if(dist.find(r) == dist.end() && isValid(r.x1,r.y1,r.x2,r.y2)){
-                    dist[r] = curDist+1;
-                    q.push(r);
-                }
+                if(dist.find(r) != dist.end()) continue;
+                if(!isValid(r)) continue;
+                dist[r] = curDist+1;
+                q.push(r);
             }
         }
     }
@@ -92,7 +90,7 @@ int bfs(){
 
 int solution(vvi b){
     board = b;
-    N = board.size();
+    n = board.size();
     int answer = bfs();
     return answer;
 }
