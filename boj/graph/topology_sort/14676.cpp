@@ -13,15 +13,14 @@ int main(){
     }
     for(int i = 0,op,x; i < k; i++){
         cin >> op >> x;
-        
+
         if(isCheat) continue;
 
         if(op == 1){ //°Ç¼³
             if(indegree[x]) isCheat = true;
             else{
-                if(indegree[x] == 0 && buildCheck[x]) {buildCheck[x]++; continue;}
+                if(buildCheck[x]++) continue;
                 for(auto next : graph[x]) indegree[next]--;
-                buildCheck[x]++;
             }
         }
 
