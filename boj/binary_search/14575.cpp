@@ -31,6 +31,7 @@ ll binarySearch(){
         else if (sum == totalDrink) return mid;
         else r = mid - 1;
     }
+    if(l > totalDrink) return -1;
     return l;
 }
 
