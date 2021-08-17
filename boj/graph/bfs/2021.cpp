@@ -2,37 +2,28 @@
 using namespace std;
 int n, m, s, e;
 vector<int> route[200001];
-vector<int> whichRoute[200001];
-int routeCk[200001];
 int dist[200001];
 
-int bfs(int i){
+int bfs(){
     queue <int> q;
-    int routeName = whichRoute[i][0];
-    routeCk[routeName] = 1;
-    for(auto r : route[routeName]){
-        q.push(r); //s가 속한 호선
-    }
-
+    dist[s] = 0;
+    q.push(s);
     while(!q.empty()){
         int x = q.front();
         q.pop();
-        //cout << "X station : " << x << '\n';
-        if(x == e) return dist[x];
-        for(auto next : route[x]){
-            if(routeCk[next]) continue;
-            routeCk[next] = 1;
+        if(x == e) return dist[x] - 1 > 0 ? dist[x] - 1 : 0;
+        for(auto next : route[x]) {
+            if(dist[next] > -1) continue;
             if(next > 100000) dist[next] = dist[x] + 1;
             else dist[next] = dist[x];
-            //cout << "NEXT : " << next << '\n';
             q.push(next);
         }
     }
     return -1;
-
 }
 
 int main(){
+    memset(dist,-1,sizeof(dist));
     cin >> n >> m;
     for(int i = 1; i <= m; i++){
         while(1){
@@ -41,10 +32,9 @@ int main(){
             if(v == -1) break;
             route[v].push_back(i+100000);
             route[i+100000].push_back(v);
-            //v가 속한 호선
-            whichRoute[v].push_back(i + 100000);
         }
     }
+    
     cin >> s >> e;
-    cout << bfs(s);
+    cout << bfs();
 }
