@@ -30,5 +30,5 @@ int main(){
         int endIdx = upper_bound(b.begin(),b.end(),t - a[i]) - b.begin();
         ans += endIdx - idx;
     }
-    cout << ans << '\n';
+    cout << ans;
 }

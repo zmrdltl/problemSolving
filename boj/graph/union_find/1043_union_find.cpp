@@ -1,23 +1,22 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
  
 int n, m, k;
-int parents[51];
+int parent[51];
 
 vector<int> know;
 vector<vector<int> > v(50);
  
  
 int Find(int x) {
-    if (parents[x] == x) return x;
-    return x = Find(parents[x]);
+    if (parent[x] == x) return x;
+    return x = Find(parent[x]);
 }
  
 void Union(int x, int y) {
     x = Find(x);
     y = Find(y);
-    parents[x] = y;
+    parent[x] = y;
 }
  
  
@@ -33,7 +32,7 @@ int main(void) {
         know.push_back(t);
     }
  
-    for (int i = 1; i <= n; i++) parents[i] = i;
+    for (int i = 1; i <= n; i++) parent[i] = i;
  
     for (int i = 0; i < m; i++) {
         int p;
