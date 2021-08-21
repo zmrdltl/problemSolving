@@ -1,3 +1,4 @@
+//꿈틀꿈틀 호석 애벌레 - 기능성
 #include <bits/stdc++.h>
 using namespace std;
 int n, k, energy[21];
