@@ -1,0 +1,6 @@
+s = input().split('/')
+k = int(s[0])
+d = int(s[1])
+a = int(s[2])
+if(k + a < d or d == 0) : print("hasu")
+else : print("gosu")
