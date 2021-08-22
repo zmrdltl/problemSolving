@@ -1,20 +1,18 @@
-//TODO
 #include <bits/stdc++.h>
 #define ll long long
 using namespace std;
-ll n, k, food[100001], l, r, sum, energy;
+ll n, k, food[100001],d[100001], l, r = 1, sum, energy;
+
 int main(){
     cin >> n >> k;
-    for(int i = 0; i < n; i++) cin >> food[i];
-    while(l <= r){
-        if(sum + food[r] < k) sum += food[r++];
-        else{
-            sum += food[r];
-            energy += sum - k;
-            sum -= food[l++];
+    for(int i = 1; i <= n; i++) cin >> food[i];
+    for(r = 1; r <= n; r++){
+        sum += food[r];
+        d[r] = d[r-1];
+        while(sum >= k){
+            d[r] = max(d[r], d[l] + sum - k);
+            sum -= food[++l];
         }
-        cout << "l , r : " << l << ' ' << r << '\n';
-        cout << sum << '\n';
     }
-    cout << energy << '\n';
+    cout << d[n];
 }
