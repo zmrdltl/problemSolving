@@ -39,9 +39,9 @@ bool canMeet(){
             int ny = y + dy[i];
             if(0 > nx || nx >= r || 0 > ny || ny >= c) continue;
             if(ck[nx][ny]) continue;
+            ck[nx][ny] = 1;
             if(lake[nx][ny] == 'X') s.push({nx,ny}); //다음날에 다닐수 있다.
             else swanQ.push({nx,ny});
-            ck[nx][ny] = 1;
         }
     }
     swanQ = s;
@@ -60,8 +60,8 @@ int main(){
     swanQ.push({swan[0].r,swan[0].c});
     while(1){
         if(canMeet()) break;
-        meltIce();
         timer++;
+        meltIce();
     }
     cout << timer;
 }
