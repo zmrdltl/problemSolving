@@ -29,6 +29,7 @@ int main(){
         familyIdxMap[s] = i;
         familyNameMap[i] = s;
     }
+    
     cin >> m;
     for(int i = 0; i < m; i++){
         string a,b;
@@ -37,14 +38,13 @@ int main(){
         graph[familyIdxMap[b]].push_back(familyIdxMap[a]);
     }
     
-    for(int i = 0; i < n; i++) {
-        if(!ind[i]) ancestor.push_back(familyNameMap[i]);
-    }
+    for(int i = 0; i < n; i++)
+        if(!ind[i]) 
+            ancestor.push_back(familyNameMap[i]);
+
     sort(ancestor.begin(),ancestor.end());
 
-    for(auto a : ancestor){
-        topologySort(a);
-    }
+    for(auto a : ancestor) topologySort(a);
 
     cout << ancestor.size() << '\n';
     for(auto a : ancestor) cout << a << ' ';
