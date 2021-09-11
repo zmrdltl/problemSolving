@@ -5,6 +5,6 @@ ll k, w, m;
 int main(){
     cin >> k >> w >> m; 
     ll result = 0; 
-    while (k < w) k += m; result++; 
+    while (k < w) k += m, result++; 
     cout << result << "\n";
 }
