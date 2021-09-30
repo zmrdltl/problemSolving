@@ -22,9 +22,8 @@ int main(){
             second = max(second, el.second);
         }
         for(auto el : playerScoreMap){
-            if(el.second == second) ans.push_back(el.first);
+            if(el.second == second) cout << el.first << ' ';
         }
-        for(auto a : ans) cout << a << ' ';
         cout << '\n';
     }
 }
