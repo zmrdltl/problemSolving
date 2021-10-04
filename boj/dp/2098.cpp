@@ -11,10 +11,10 @@ int dp(int cur, int status){
     int &ret = d[cur][status];
     if(ret != -1) return ret;
     ret = INF;
-    for(int i = 0; i < n; i++){
-        if(!cost[cur][i]) continue;
-        if((status & (1 << i)) == (1 << i)) continue; //이미 들렀던 도시면
-        ret = min(ret, cost[cur][i] + dp(i, status | 1 << i));
+    for(int next = 0; next < n; next++){
+        if(!cost[cur][next]) continue;
+        if((status & (1 << next)) == (1 << next)) continue; //이미 정했던 도시면
+        ret = min(ret, cost[cur][next] + dp(next, status | 1 << next));
     }
     return ret;
 }
