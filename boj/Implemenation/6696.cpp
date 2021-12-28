@@ -5,10 +5,10 @@ using namespace std;
 int main(){
     while(1){
         int hour = 0;
-        double a, b, propertyArea;
-        cin >> a >> b;
-        if(!a && !b) break;
-        propertyArea = (a * a + b * b) * PI / 2;
+        double x, y, propertyArea;
+        cin >> x >> y;
+        if(!x && !y) break;
+        propertyArea = (x * x + y * y) * PI / 2;
         hour = ceil(propertyArea / COVER_AREA);
         cout << "The property will be flooded in hour " <<  hour << ".\n";
     }
