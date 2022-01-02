@@ -1,17 +1,13 @@
 #include <iostream>
-using namespace std;
-int n;
-int main(){
-    cin >> n;
-    if(n == 1) cout << 1;
-    else cout << n / 2 + 1; 
+using namespace std; 
+bool visit[6]; 
+int n, cnt;
+int main() { 
+    cin >> n; 
+    for (int i = 0; i <= 5; i++)
+        for (int j = 0; j <= 5; j++)
+            if (i + j == n) visit[i] = true; 
+    for (int i = 0; i <= n/2; i++)
+        if(visit[i]) cnt++;
+    cout << cnt;
 }
-
-// 1 1
-// 2 3
-
-// 3 3
-// 4 3
-
-// 5 4
-// 6 5
