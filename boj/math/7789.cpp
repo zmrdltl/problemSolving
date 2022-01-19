@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-int phoneNum, num;
+string phoneNum, num;
 
 bool isPrime(int num){
     for(int i = 2; i < num; i++)
@@ -10,7 +10,6 @@ bool isPrime(int num){
 
 int main(){
     cin >> phoneNum >> num;
-    string newPhoneNum = to_string(num) + to_string(phoneNum);
-    if(isPrime(phoneNum) && isPrime(stoi(newPhoneNum))) cout << "Yes";
+    if(isPrime(stoi(phoneNum)) && isPrime(stoi(num + phoneNum))) cout << "Yes";
     else cout << "No";
 }
