@@ -2,9 +2,9 @@
 using namespace std;
 string phoneNum, num;
 
-bool isPrime(int num){
-    for(int i = 2; i < num; i++)
-        if(num % i == 0) return false;
+bool isPrime(int n){
+    for(int i = 2; i < n; i++)
+        if(n % i == 0) return false;
     return true;
 }
 
