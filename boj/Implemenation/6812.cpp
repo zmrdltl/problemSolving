@@ -5,8 +5,9 @@ int t;
 int convert(int ti){
     int tmp = ti;
     if(ti < 0) tmp = ti + 2400;
-    else if(ti >= 2400) tmp = ti - 2400;
+    if(ti >= 2400) tmp = ti - 2400;
     if(tmp % 100 >= 60) tmp = 100 * (tmp / 100 + 1) + tmp % 100 - 60;
+    if(tmp >= 2400) tmp -= 2400;
     return tmp;
 }
 
