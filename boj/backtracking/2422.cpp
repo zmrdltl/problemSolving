@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-int n, m, ck[201], cnt;
-vector <int> graph[201], comb, combCk;
+int n, m, cnt;
+vector <int> graph[201], combCk;
 
 bool isValid(int s, int e){
     for(auto next : graph[s]) {
