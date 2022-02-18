@@ -9,6 +9,6 @@ int main(){
         cin >> n;
         int moved = (n-1) / 3;
         int movedLeft = (n-1) % 3;
-        cout << answers[((moved % 4) + movedLeft) % 4] << '\n';
+        cout << answers[(moved + movedLeft) % 4] << '\n';
     }
 }
