@@ -6,17 +6,17 @@ int main(){
     cin >> n;
     for(int i = 1; i <= n; i++){
         int secondNum = i;
-        int diff = n - secondNum;
+        int nextNum = n - secondNum;
         int length = 3;
-        vector<int> v = {n, secondNum, diff};
+        vector<int> v = {n, secondNum, nextNum};
 
         while(1){
-            int tmp = diff;
-            diff = secondNum - diff;
-            if(diff < 0) break;
+            int tmp = nextNum;
+            nextNum = secondNum - nextNum;
+            if(nextNum < 0) break;
             secondNum = tmp;
             length++;
-            v.push_back(diff);
+            v.push_back(nextNum);
         }
 
         if(maxLength < length) nums = v, maxLength = length;
