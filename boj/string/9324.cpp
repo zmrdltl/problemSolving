@@ -1,24 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-int t;
-string s, a;
+
+int t, ck[26];
+string msg, originMsg;
+
 int main(){
     cin >> t;
     while(t--){
-        cin >> s;
-        a = "";
-        vector <int> ck(26,0);
-        for(int i = 0; i < s.size(); i++){
-            ck[s[i]-'A']++;
-            a += s[i];
-            if(ck[s[i]-'A'] == 3){
-                a += s[i];
-                ck[s[i]-'A'] = 0;
+        memset(ck, 0, sizeof(ck));
+        originMsg = "";
+
+        cin >> msg;
+
+        for(int i = 0; i < msg.size(); i++){
+            ck[msg[i]-'A']++;
+            originMsg += msg[i];
+            if(ck[msg[i]-'A'] == 3){
+                originMsg += msg[i];
+                ck[msg[i]-'A'] = 0;
                 i++;
             }
         }
 
-        if(a == s) cout << "OK\n";
+        if(originMsg == msg) cout << "OK\n";
         else cout << "FAKE\n";
     }
 }
