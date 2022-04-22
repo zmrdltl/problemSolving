@@ -2,14 +2,14 @@
 using namespace std;
 
 string docs,searchWord;
-int ans, cnt, wordSize;
+int ans, cnt, wordSize, docsSize;
 
 int main(){
 
     getline(cin,docs);
     getline(cin,searchWord);
 
-    for(int i = 0; i < docs.size(); i++){
+    for(int i = 0; i < docsSize; i++){
         cnt = 0;
         wordSize = searchWord.size();
 
