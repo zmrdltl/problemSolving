@@ -3,18 +3,18 @@ using namespace std;
 int y;
 double h;
 
-int backtracking(double h, int y){
-  if(y < 0) return 0;
-  if(y == 0) return h;
+int bruteForce(double money, int year){
+  if(year > y) return 0;
+  if(year == y) return money;
   int ret = 0;
-  ret = max(ret, backtracking((int)h * 1.05, y - 1));
-  ret = max(ret, backtracking((int)h * 1.2, y - 3));
-  ret = max(ret, backtracking((int)h * 1.35, y - 5));
+  ret = max(ret, bruteForce((int)money * 1.05, year + 1));
+  ret = max(ret, bruteForce((int)money * 1.2, year + 3));
+  ret = max(ret, bruteForce((int)money * 1.35, year + 5));
 
   return ret;
 }
 
 int main(){
   cin >> h >> y;
-  cout << backtracking(h, y);
+  cout << bruteForce(h, 0);
 }
