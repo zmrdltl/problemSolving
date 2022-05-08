@@ -2,24 +2,25 @@
 using namespace std;
 using pii = pair<int, int>;
 
-int t, ans, candyNum, boxNum, sum, cnt;
+int testCase, candyNum, boxNum, sum, cnt;
+vector <pii> boxes;
 
 bool cmp(pii a, pii b){
   return a.first * a.second > b.first * b.second;
 }
 
 int main(){
-  cin >> t;
-  while(t--){
-    sum = 0, cnt = 0;
+  cin >> testCase;
+  while(testCase--){
     cin >> candyNum >> boxNum;
-    vector <pii> v(boxNum);
-    for(int i = 0; i < boxNum; i++) cin >> v[i].first >> v[i].second;
-    
-    sort(v.begin(), v.end(), cmp);
+    sum = 0, cnt = 0;
+    boxes.resize(boxNum);
+    for(int i = 0; i < boxNum; i++) cin >> boxes[i].first >> boxes[i].second;
+
+    sort(boxes.begin(), boxes.end(), cmp);
 
     for(int i = 0; i < boxNum; i++){
-      sum += v[i].first * v[i].second;
+      sum += boxes[i].first * boxes[i].second;
       cnt++;
       if(sum >= candyNum) break;
     }
