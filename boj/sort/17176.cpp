@@ -1,17 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
-string cryptogram, origin;
+string decodedCryptogram, origin;
 vector <int> cryptogramVector;
 int n;
 
 void decodeCryptogram(){
   for(auto c : cryptogramVector){
-    if(c == 0) cryptogram += " ";
+    if(c == 0) decodedCryptogram += " ";
     else if(1 <= c && c <= 26) {
-      cryptogram += (c - 1) + 'A';
+      decodedCryptogram += (c - 1) + 'A';
     }
     else if(27 <= c && c <= 52) {
-      cryptogram += (c - 27) + 'a';
+      decodedCryptogram += (c - 27) + 'a';
     }
   }
 }
@@ -25,9 +25,9 @@ int main(){
   getline(cin, origin);
   decodeCryptogram();
 
-  sort(cryptogram.begin(), cryptogram.end());
+  sort(decodedCryptogram.begin(), decodedCryptogram.end());
   sort(origin.begin(), origin.end());
   
-  if(cryptogram == origin) cout << 'y';
+  if(decodedCryptogram == origin) cout << 'y';
   else cout << 'n';
 }
