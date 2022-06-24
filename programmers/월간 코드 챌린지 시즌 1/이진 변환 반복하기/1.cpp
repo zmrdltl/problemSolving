@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 int converted, deleted;
+
 string deleteZero(string s){
   string deletedStr;
   for(auto c : s) {
@@ -11,9 +13,9 @@ string deleteZero(string s){
 }
 
 string convertToBin(string s){
+  string convertedStr;
   int num = s.size();
   converted++;
-  string convertedStr;
   while(num){
     convertedStr += to_string(num % 2);
     num /= 2;
