@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 string s, t;
-int ans = 0;
 
 int dfs(string tmp){
     if(tmp == s) return 1;
