@@ -1,25 +1,22 @@
-#include <string>
-#include <vector>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 string solution(string s) {
     string answer = "";
-    int flag = 1;
+    int cnt = 0;
     for(int i = 0; i < s.size(); i++){
         if('A' <= s[i] && s[i] <= 'Z'){
-            s[i] = 'a' + s[i] -'A';
+            s[i] = s[i] - 'A' + 'a';
         }
     }
     for(int i = 0; i < s.size(); i++){
-        if('a' <= s[i] && s[i] <= 'z' && flag){
-            flag = 0;
-            s[i] = 'A' + s[i] -'a';
+        if(!cnt)
+           if('a' <= s[i] && s[i] <= 'z') {
+                s[i] = s[i] - 'a' + 'A';
+            cnt = 1;
         }
-        if(s[i] == ' ') flag = 1;
-        if(!i) flag = 0;
-        
-        answer += s[i];
+        if(s[i] == ' ') cnt = 0;
+        else cnt++;
     }
-    return answer;
+    return s;
 }
