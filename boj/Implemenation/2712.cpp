@@ -3,7 +3,7 @@ using namespace std;
 double t, weight;
 string unit;
 
-double getConvertedUnit(){
+double getConvertedWeight(){
   if(unit == "kg") {
     unit = "lb";
     return weight * 2.2046;
@@ -24,7 +24,7 @@ int main(){
   cin >> t;
   while(t--){
     cin >> weight >> unit;
-    printf("%.4f", getConvertedUnit());
+    printf("%.4f", getConvertedWeight());
     cout << " " << unit << '\n';
   }
 }
