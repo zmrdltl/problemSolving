@@ -72,5 +72,7 @@
         "string_view": "cpp",
         "charconv": "cpp",
         "optional": "cpp"
-    }
+    },
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }
