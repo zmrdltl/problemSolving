@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
-struct Point {
-  int x,y;
-};
+
+struct Point { int x,y; };
 vector <Point> v;
 int n;
 double ans;
+
 int main(){
   cin >> n;
   v.resize(n);
