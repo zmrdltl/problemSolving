@@ -2,12 +2,12 @@ class Solution {
 public:
     int majorityElement(vector<int>& nums) {
         int majorLimit = ceil((double)nums.size() / 2.0);
-        map<int,int> m;
+        map<int,int> frequencyMap;
         int ans = 0;
         for(auto n : nums) {
-            m[n]++;
+            frequencyMap[n]++;
         }
-        for(auto e : m) {
+        for(auto e : frequencyMap) {
             if(e.second >= majorLimit) {
                 ans = e.first;
                 break;
