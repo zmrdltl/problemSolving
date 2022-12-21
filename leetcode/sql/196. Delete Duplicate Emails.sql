@@ -1,0 +1,1 @@
+delete from Person a where id > (select min(id) from Person b where a.email = b.email)
