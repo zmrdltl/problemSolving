@@ -1,3 +1,4 @@
+-- MySQL & Oracle
 select class
 from courses
 group by class
