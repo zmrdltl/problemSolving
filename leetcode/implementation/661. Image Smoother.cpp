@@ -17,17 +17,12 @@ public:
     vector<vector<int>> imageSmoother(vector<vector<int>>& img) {
         int r = img.size();
         int c = img[0].size();
-        vector<vector<int>> v;
+        vector<vector<int>> v(r, vector<int>(c,0));
         for (int i = 0; i < r; i++) {
-            vector <int> rows;
-
             for (int j = 0; j < c; j++) {
-                
-
                 int avg = getAvg(i, j, r, c, img);
-                rows.push_back(avg);
+                v[i][j] = avg;
             }
-            v.push_back(rows);
         }
         return v;
 
