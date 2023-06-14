@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findShortestSubArray(vector<int>& nums) {
-        int maxFreq = 0;
+        int degree = 0;
         int length = 0x3f3f3f3f;
         map <int ,vector<int>> idxOfNumsMap;
 
@@ -11,12 +11,12 @@ public:
         
         for(auto im : idxOfNumsMap) {
             int curFreq = im.second.size();
-            maxFreq = max(maxFreq, curFreq);
+            degree = max(degree, curFreq);
         }
 
         for(auto im : idxOfNumsMap) {
             int curFreq = im.second.size();
-            if(maxFreq == curFreq) {
+            if(degree == curFreq) {
                 vector <int> idxs = idxOfNumsMap[im.first];
                 length = min(length, idxs[idxs.size() - 1] - idxs[0] + 1);
             }
