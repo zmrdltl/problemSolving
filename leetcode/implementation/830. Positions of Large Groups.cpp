@@ -2,7 +2,6 @@ class Solution {
 public:
     vector<vector<int>> largeGroupPositions(string s) {
         vector<vector<int>> ans;
-        int cnt = 0;
         int startIdx = 0, endIdx = 0;
         for(int i = 0; i < s.size()-1; i++) {
             if(s[i] != s[i+1]) {
