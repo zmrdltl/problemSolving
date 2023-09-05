@@ -27,8 +27,8 @@ public:
 
     int numUniqueEmails(vector<string>& emails) {
         filterEmails(emails);
-        map <string,int> m;
-        for(auto e: emails) m[e] = 1;
-        return m.size();
+        set <string> s;
+        for(auto e: emails) s.insert(e);
+        return s.size();
     }
 };
