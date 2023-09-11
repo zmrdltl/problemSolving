@@ -4,7 +4,6 @@ impl Solution {
         let mut l = 0;
         let mut r = sz as i32;
         let mut ans:Vec<i32> = Vec::new();
-        println!("{:?}",s.chars());
         for c in s.chars() {
             if c == 'I' {
                 ans.push(l);
