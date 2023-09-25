@@ -11,7 +11,6 @@ public:
         }
 
         for(int i = 0; i < 26; i++) {
-            if(!minFreq[i]) continue;
             for(int j = 0; j < minFreq[i]; j++)
                 ans.push_back(string(1, i + 'a'));
         }
