@@ -5,9 +5,7 @@ public:
         stack <char> st;
         for(auto c : s) {
             if(st.size() && st.top() == c) {
-                while(st.size() && st.top() == c) {
-                    st.pop();
-                }
+                st.pop();
                 continue;
             }
             st.push(c);
