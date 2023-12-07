@@ -6,7 +6,6 @@ public:
             if(p % 2) oddChips++;
             else evenChips++;
         }
-        if(!oddChips || !evenChips) return 0;
         return min(oddChips, evenChips);
     }
 };
