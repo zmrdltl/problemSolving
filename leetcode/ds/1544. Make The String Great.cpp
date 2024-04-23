@@ -6,7 +6,6 @@ public:
     }
     string makeGood(string s) {
         stack <char> st;
-        cout << s << '\n';
         for(int i = 0; i < s.size(); i++) {
             if (st.size() && needErase(st.top(), s[i])) st.pop();
             else st.push(s[i]);
