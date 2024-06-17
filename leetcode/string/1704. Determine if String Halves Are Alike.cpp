@@ -13,6 +13,6 @@ public:
         int halfSize = s.size() / 2;
         string a = s.substr(0, halfSize);
         string b = s.substr(halfSize);
-        return countVowel(a) == countVowel(b) && a.size() == b.size();
+        return countVowel(a) == countVowel(b);
     }
 };
