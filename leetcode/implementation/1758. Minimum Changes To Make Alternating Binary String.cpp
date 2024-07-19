@@ -15,7 +15,6 @@ public:
         int length = s.size();
         string pattern1 = getFilpedPattern(length, 0);
         string pattern2 = getFilpedPattern(length, 1);
-        cout << pattern1 << ' ' << pattern2 << '\n';
         for(int i = 0; i < length; i++) {
             if(pattern1[i] != s[i]) pattern1Altered++;
             if(pattern2[i] != s[i]) pattern2Altered++;
