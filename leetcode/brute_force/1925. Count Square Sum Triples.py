@@ -1,5 +1,3 @@
-import itertools
-
 class Solution(object):
     def countTriples(self, n):
         ans = 0
