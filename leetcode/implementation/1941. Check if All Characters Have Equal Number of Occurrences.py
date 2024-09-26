@@ -6,8 +6,8 @@ class Solution:
                 alphabatFrequency[char] = 0
             else:
                 alphabatFrequency[char] += 1
-        a = [val for val in alphabatFrequency.values()]
-        for i in range(0, len(a) - 1):
-            if a[i] != a[i+1]: 
+        frequencies = [val for val in alphabatFrequency.values()]
+        for i in range(0, len(frequencies) - 1):
+            if frequencies[i] != frequencies[i+1]: 
                 return False;
         return True    
