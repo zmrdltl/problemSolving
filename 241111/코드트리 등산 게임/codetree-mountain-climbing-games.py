@@ -112,28 +112,27 @@ for i in range(1, n + 1):
         current_score = 0
         pos = start
         current_height = mountain[pos]
+        used_cable_car = False  # 케이블카 사용 여부 플래그
 
         # 오른쪽으로 더 높은 산을 찾아 등산 진행
         while pos < len(mountain):
-            # 케이블카 위치에 도달한 경우
-            if pos == m_index:
+            # 케이블카 위치에 도달한 경우 (케이블카를 아직 사용하지 않은 경우에만)
+            if pos == m_index and not used_cable_car:
                 current_score += success_score
                 # 케이블카를 타고 최저 높이 산으로 다시 이동하여 점수를 추가
-                #print(pos)
                 pos = query_min(min_seg_tree, mountain, 1, 0, len(mountain) - 1, 0, len(mountain) - 1)
-                #print("케이블카 탐", pos, current_score)
                 current_height = mountain[pos]
-                m_index = -1
-            
+                used_cable_car = True  # 케이블카 사용 후 플래그 설정
+                
             # 현재 위치 바로 오른쪽에서 더 높은 산 찾기
             next_pos = query_next_higher(max_seg_tree, mountain, 1, 0, len(mountain) - 1, pos, current_height)
             if next_pos == -1:
                 break
             current_score += success_score
             current_height = mountain[next_pos]
-            #print("등반성공",pos, next_pos, current_score)
             pos = next_pos
 
+        # 마지막 산의 높이 점수 추가
         current_score += current_height
         max_score = max(max_score, current_score)
         results.append(max_score)
