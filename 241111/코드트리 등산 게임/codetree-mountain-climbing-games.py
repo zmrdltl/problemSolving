@@ -115,7 +115,7 @@ for i in range(1, n + 1):
         used_cable_car = False  # 케이블카 사용 여부 플래그
 
         # 오른쪽으로 더 높은 산을 찾아 등산 진행
-        while pos < len(mountain):
+        while pos < len(mountain) - 1:
             # 케이블카 위치에 도달한 경우 (케이블카를 아직 사용하지 않은 경우에만)
             if pos == m_index and not used_cable_car:
                 current_score += success_score
