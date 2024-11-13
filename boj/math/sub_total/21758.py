@@ -2,7 +2,6 @@ import sys
 input = sys.stdin.readline
 
 def max_honey(n, honey):
-    total_honey = sum(honey)
     accumulated_honey = [0] * n
     
     for i in range(n):
@@ -11,7 +10,7 @@ def max_honey(n, honey):
     # 벌통 왼쪽 벌 두 마리 오른쪽        
     max_honey_case1 = 0
     for i in range(1, n-1):
-        max_honey_case1 = max(max_honey_case1, accumulated_honey[n-1] - honey[i] - honey[-1] + accumulated_honey[i-1])
+        max_honey_case1 = max(max_honey_case1, accumulated_honey[n-2] - honey[i] + accumulated_honey[i-1])
     
     # 벌통 오른쪽 벌 두 마리 왼쪽
     max_honey_case2 = 0
