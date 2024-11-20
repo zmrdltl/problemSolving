@@ -9,11 +9,10 @@ int dr[4] = {0, 0, 1, -1};
 int dc[4] = {1, -1, 0, 0};
 
 int bfs() {
-  // (행, 열, 벽 부순 횟수)
   queue<tuple<int, int, int>> q;
   q.push({0, 0, 0});
   
-  vector<vector<vector<int>>> check(n, vector<vector<int>>(m, vector<int>(k + 1, numeric_limits<int>::max())));
+  vector<vector<vector<int>>> check(n, vector<vector<int>>(m, vector<int>(k + 1, 0)));
   check[0][0][0] = 1;
   
   while (!q.empty()) {
@@ -32,12 +31,12 @@ int bfs() {
         continue;
       }
       
-      if (map_input[nr][nc] == 0 && check[nr][nc][break_cnt] > check[r][c][break_cnt] + 1) {
+      if (map_input[nr][nc] == 0 && check[nr][nc][break_cnt] == 0) {
         check[nr][nc][break_cnt] = check[r][c][break_cnt] + 1;
         q.push({nr, nc, break_cnt});
       }
       
-      if (map_input[nr][nc] == 1 && break_cnt < k && check[nr][nc][break_cnt + 1] > check[r][c][break_cnt] + 1) {
+      if (map_input[nr][nc] == 1 && break_cnt < k && check[nr][nc][break_cnt + 1] == 0) {
         check[nr][nc][break_cnt + 1] = check[r][c][break_cnt] + 1;
         q.push({nr, nc, break_cnt + 1});
       }

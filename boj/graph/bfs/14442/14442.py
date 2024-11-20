@@ -9,7 +9,7 @@ def bfs():
     dr = [0,0,1,-1]
     dc = [1,-1,0,0]
     queue = deque([(0,0,0)])
-    check = [[[1000001] * (k+1) for _ in range(m)] for _ in range(n)]
+    check = [[[0] * (k+1) for _ in range(m)] for _ in range(n)]
     check[0][0][0] = 1
     while queue:
         r, c, break_cnt = queue.popleft()
@@ -21,10 +21,10 @@ def bfs():
             nc = c + dc[i]
             if not (0 <= nr < n and 0 <= nc < m):
                 continue
-            if map_input[nr][nc] == 0 and check[nr][nc][break_cnt] > check[r][c][break_cnt] + 1:
+            if map_input[nr][nc] == 0 and check[nr][nc][break_cnt] == 0:
                 check[nr][nc][break_cnt] = check[r][c][break_cnt] + 1
                 queue.append((nr,nc,break_cnt))
-            if map_input[nr][nc] == 1 and break_cnt < k and check[nr][nc][break_cnt + 1] > check[r][c][break_cnt] + 1:
+            if map_input[nr][nc] == 1 and break_cnt < k and check[nr][nc][break_cnt + 1] == 0:
                 check[nr][nc][break_cnt + 1] = check[r][c][break_cnt] + 1
                 queue.append((nr,nc,break_cnt+1))
     return -1
