@@ -5,13 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "java",
-      "name": "Hello",
-      "request": "launch",
-      "mainClass": "programmers.Hello",
-      "projectName": "problemSolving_7af059b0"
-    },
-    {
       "name": "g++.exe - 활성 파일 빌드 및 디버그",
       "type": "cppdbg",
       "request": "launch",
