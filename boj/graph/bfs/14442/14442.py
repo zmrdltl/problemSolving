@@ -2,7 +2,6 @@ from collections import deque
 import sys
 input = sys.stdin.readline
 
-# 입력 처리
 n, m, k = map(int, input().strip().split())
 map_input = [list(map(int, input().strip())) for _ in range(n)]
 
@@ -22,7 +21,6 @@ def bfs():
             nc = c + dc[i]
             if not (0 <= nr < n and 0 <= nc < m):
                 continue
-            #벽을 부수지 않고 이동가능한 경우
             if map_input[nr][nc] == 0 and check[nr][nc][break_cnt] > check[r][c][break_cnt] + 1:
                 check[nr][nc][break_cnt] = check[r][c][break_cnt] + 1
                 queue.append((nr,nc,break_cnt))

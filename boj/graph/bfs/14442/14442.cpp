@@ -13,7 +13,6 @@ int bfs() {
   queue<tuple<int, int, int>> q;
   q.push({0, 0, 0});
   
-  // 방문 배열: (행, 열, 벽 부순 횟수)
   vector<vector<vector<int>>> check(n, vector<vector<int>>(m, vector<int>(k + 1, numeric_limits<int>::max())));
   check[0][0][0] = 1;
   
@@ -21,28 +20,23 @@ int bfs() {
     auto [r, c, break_cnt] = q.front();
     q.pop();
     
-    // 목표 지점 도달 시
     if (r == n - 1 && c == m - 1) {
       return check[r][c][break_cnt];
     }
     
-    // 네 방향 탐색
     for (int i = 0; i < 4; i++) {
       int nr = r + dr[i];
       int nc = c + dc[i];
       
-      // 유효하지 않은 위치 무시
       if (nr < 0 || nr >= n || nc < 0 || nc >= m) {
         continue;
       }
       
-      // 벽을 부수지 않고 이동 가능한 경우
       if (map_input[nr][nc] == 0 && check[nr][nc][break_cnt] > check[r][c][break_cnt] + 1) {
         check[nr][nc][break_cnt] = check[r][c][break_cnt] + 1;
         q.push({nr, nc, break_cnt});
       }
       
-      // 벽을 부수고 이동 가능한 경우
       if (map_input[nr][nc] == 1 && break_cnt < k && check[nr][nc][break_cnt + 1] > check[r][c][break_cnt] + 1) {
         check[nr][nc][break_cnt + 1] = check[r][c][break_cnt] + 1;
         q.push({nr, nc, break_cnt + 1});
@@ -57,7 +51,6 @@ int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
   
-  // 입력 처리
   cin >> n >> m >> k;
   map_input.resize(n, vector<int>(m));
   
