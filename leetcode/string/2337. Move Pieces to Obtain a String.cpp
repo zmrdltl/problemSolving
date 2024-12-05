@@ -2,12 +2,8 @@ from bisect import bisect_left
 
 class Solution:
   def canChange(self, start: str, target: str) -> bool:
-    length = len(start)
     start_char_idx = [(i,char) for i,char in enumerate(start) if char != '_']
     target_char_idx = [(i,char) for i,char in enumerate(target) if char != '_']
-
-    print(start_char_idx)
-    print(target_char_idx)
 
     if len(start_char_idx) != len(target_char_idx):
         return False
