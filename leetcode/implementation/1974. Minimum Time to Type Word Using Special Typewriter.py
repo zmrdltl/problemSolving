@@ -10,6 +10,6 @@ class Solution:
             if counter_clockwise_move < 0:
                 counter_clockwise_move += 26
             move += min(clockwise_move,counter_clockwise_move)
-            piv = charx
+            piv = char
             move+=1
         return move
