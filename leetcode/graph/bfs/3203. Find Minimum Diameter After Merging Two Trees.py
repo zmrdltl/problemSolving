@@ -1,57 +1,38 @@
+from collections import deque, defaultdict
 class Solution:
-    def minimumDiameterAfterMerge(self, edges1, edges2):
-        # Calculate the number of nodes for each tree
-        n = len(edges1) + 1
-        m = len(edges2) + 1
+    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:
+        def build_graph(edges):
+            graph = defaultdict(list)
+            for edge in edges:
+                graph[edge[0]].append(edge[1])
+                graph[edge[1]].append(edge[0])
+            return graph
 
-        # Build adjacency lists for both trees
-        adj_list1 = self.build_adj_list(n, edges1)
-        adj_list2 = self.build_adj_list(m, edges2)
+        def bfs_diameter(graph):
+            def bfs(start):
+                dq = deque([(start,0)])
+                visited = {}
+                visited[start] = True
+                furthest_node, max_dist = start, 0
+                while dq:
+                    node, dist = dq.popleft()
+                    for next in graph[node]:
+                        if visited.get(next):
+                            continue
+                        visited[next] = True
+                        if dist + 1 > max_dist:
+                            furthest_node, max_dist = next, dist + 1
+                        dq.append((next, dist + 1))
+                return furthest_node, max_dist
 
-        # Calculate the diameters of both trees
-        diameter1 = self.find_diameter(n, adj_list1)
-        diameter2 = self.find_diameter(m, adj_list2)
+            furthest_node, _ = bfs(0)
+            _, diameter = bfs(furthest_node)
 
-        # Calculate the longest path that spans across both trees
-        combined_diameter = ceil(diameter1 / 2) + ceil(diameter2 / 2) + 1
+            return diameter
 
-        # Return the maximum of the three possibilities
-        return max(diameter1, diameter2, combined_diameter)
+        graph1 = build_graph(edges1)
+        graph2 = build_graph(edges2)
+        diameter1 = bfs_diameter(graph1)
+        diameter2 = bfs_diameter(graph2)
 
-    def build_adj_list(self, size, edges):
-        adj_list = [[] for _ in range(size)]
-        for edge in edges:
-            adj_list[edge[0]].append(edge[1])
-            adj_list[edge[1]].append(edge[0])
-        return adj_list
-
-    def find_diameter(self, n, adj_list):
-        # First BFS to find the farthest node from an arbitrary node (e.g., 0)
-        farthest_node, _ = self.find_farthest_node(n, adj_list, 0)
-
-        # Second BFS to find the diameter starting from the farthest node
-        _, diameter = self.find_farthest_node(n, adj_list, farthest_node)
-        return diameter
-
-    def find_farthest_node(self, n, adj_list, source_node):
-        queue = deque([source_node])
-        visited = [False] * n
-        visited[source_node] = True
-
-        maximum_distance = 0
-        farthest_node = source_node
-
-        while queue:
-            for _ in range(len(queue)):
-                current_node = queue.popleft()
-                farthest_node = current_node
-
-                for neighbor in adj_list[current_node]:
-                    if not visited[neighbor]:
-                        visited[neighbor] = True
-                        queue.append(neighbor)
-
-            if queue:
-                maximum_distance += 1
-
-        return farthest_node, maximum_distance
+        return max((diameter1), (diameter2), (diameter1 + 1) // 2 + (diameter2 + 1) // 2 + 1)
