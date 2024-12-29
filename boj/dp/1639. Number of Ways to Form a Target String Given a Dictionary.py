@@ -8,16 +8,16 @@ class Solution:
         for word in words:
             for j, char in enumerate(word):
                 freq_map[j][char] += 1
-        memo = defaultdict(int)
+        total_ways = [[-1]*word_len for _ in range(target_len)]
         def dp(j, k):
             if j == target_len:
                 return 1
             if k == word_len:
                 return 0
-            if (j,k) in memo:
-                return memo[j,k]
+            if total_ways[j][k] != -1:
+                return total_ways[j][k]
             ways = dp(j,k+1)
             ways += freq_map[k][target[j]] * dp(j+1,k+1) % MOD
-            memo[(j,k)] = ways % MOD
-            return memo[(j,k)]
+            total_ways[j][k] = ways % MOD
+            return total_ways[j][k]
         return dp(0, 0)
