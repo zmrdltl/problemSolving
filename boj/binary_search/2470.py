@@ -5,6 +5,16 @@ input = sys.stdin.readline
 n = int(input())
 a = sorted(list(map(int, input().split())))
 
+def bisect_left(a, x):
+    lo, hi = 0, len(a)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if a[mid] < x:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
+
 def binary_search_closest(target, exclude_idx):
     idx = bisect.bisect_left(a, target)
     candidates = []
